@@ -19,6 +19,7 @@
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"); /* Added for merch icon */
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -85,6 +86,12 @@ body {
     transition: filter 0.3s ease;
 }
 
+.sidebar-link i { /* Added for Font Awesome merch icon */
+    font-size: 32px;
+    color: var(--pure-white);
+    transition: color 0.3s ease;
+}
+
 .sidebar-text {
     color: var(--pure-white);
     font-size: 0.75rem;
@@ -93,8 +100,11 @@ body {
 }
 
 .sidebar-link:hover .sidebar-icon,
-.sidebar-link:focus .sidebar-icon {
+.sidebar-link:focus .sidebar-icon,
+.sidebar-link:hover i,
+.sidebar-link:focus i {
     filter: invert(75%) sepia(40%) saturate(800%) hue-rotate(330deg);
+    color: var(--blood-red); /* For Font Awesome icon */
 }
 
 /* Main Content */
@@ -108,6 +118,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 1200px; /* Added to center content on desktop */
+    margin: 0 auto; /* Center the container */
 }
 
 /* Header */
@@ -155,6 +167,7 @@ body {
 /* Buttons */
 .action-buttons {
     margin: var(--space-md) 0;
+    text-align: center; /* Ensure buttons are centered */
 }
 
 .pre-save {
@@ -184,6 +197,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 15px;
     margin: var(--space-lg) 0;
+    justify-items: center; /* Center the buttons within the grid */
 }
 
 .platform-btn {
@@ -345,12 +359,12 @@ body {
 .social-icon {
     width: 24px;
     height: 24px;
-    filter: invert(70%) sepia(10%) saturate(500%) hue-rotate(180deg); /* Adjust color if needed */
+    filter: invert(70%) sepia(10%) saturate(500%) hue-rotate(180deg);
     transition: filter 0.3s ease;
 }
 
 .youtube-icon {
-    width: 20px; /* Reduced size for YouTube icon */
+    width: 20px;
     height: 20px;
 }
 
@@ -582,19 +596,27 @@ body {
         min-height: 400px;
     }
     
+    .video-player {
+        max-width: 100%;
+        height: auto;
+    }
+    
     .sidebar {
         width: 60px;
         padding-top: 20px;
     }
     
-    .sidebar-icon {
+    .sidebar-icon,
+    .sidebar-link i {
         width: 28px;
         height: 28px;
+        font-size: 28px;
     }
     
     .container {
         margin-left: 60px;
         width: calc(100% - 60px);
+        padding: 20px 10px;
     }
 
     .section-title {
@@ -627,7 +649,7 @@ body {
     }
 
     .youtube-icon {
-        width: 16px; /* Further reduced for smaller screens */
+        width: 16px;
         height: 16px;
     }
 }
@@ -653,9 +675,11 @@ body {
         padding-top: 15px;
     }
     
-    .sidebar-icon {
+    .sidebar-icon,
+    .sidebar-link i {
         width: 24px;
         height: 24px;
+        font-size: 24px;
     }
     
     .sidebar-text {
