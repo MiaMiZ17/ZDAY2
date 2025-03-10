@@ -42,7 +42,8 @@
             </li>
             <li class="sidebar-item">
                 <a href="#merch" class="sidebar-link" id="merch-tab" role="button" aria-label="Merch section">
-                    <img src="tshirt-icon.png" alt="" class="sidebar-icon" aria-hidden="true">
+                    <!-- Enhanced merch icon with Font Awesome for better styling -->
+                    <i class="fas fa-shopping-bag" aria-hidden="true"></i>
                     <span class="sidebar-text">Merch</span>
                 </a>
             </li>
@@ -95,8 +96,10 @@
                 <figure class="live-stream">
                     <div id="media-content">
                         <img src="ZDAY 2.png" alt="ZDAY 2 Album Cover" class="album-cover">
-                        <video id="main-video" class="video-player" muted playsinline>
-                            <source id="video-source" src="" type="video/mp4">
+                        <!-- Fixed video tag with controls and proper sources -->
+                        <video id="main-video" class="video-player" controls muted playsinline>
+                            <source id="video-source" src="dust.mp4" type="video/mp4">
+                            <source src="roseburn.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                         <p id="video-error" class="error-message" aria-live="assertive">Video failed to load. Check file paths ('dust.mp4' or 'roseburn.mp4'), format (MP4 with H.264), or browser compatibility.</p>
