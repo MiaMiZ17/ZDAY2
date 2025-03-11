@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-color: #1a1a1a;
     color: white;
     line-height: 1.6;
@@ -68,9 +68,13 @@ body {
     margin-bottom: 20px;
 }
 .title {
-    color: red;
+    font-family: 'UnifrakturMaguntia', serif;
+    color: #FF0000;
     font-size: 48px;
     margin: 0;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    filter: contrast(110%) brightness(90%);
 }
 
 /* Control Panel */
@@ -80,6 +84,8 @@ body {
 .countdown {
     background-color: #800000;
     padding: 10px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
     font-size: 18px;
     margin: 10px 0;
 }
@@ -135,6 +141,13 @@ body {
 .album-cover {
     display: none; /* Hidden by default, shown if video fails */
     width: 100%;
+    transition: opacity 2s ease-in-out;
+}
+.album-cover.fade-out {
+    opacity: 0;
+}
+.album-cover.fade-in {
+    opacity: 1;
 }
 .video-player {
     width: 100%;
@@ -142,19 +155,25 @@ body {
     max-height: 50vh;
     object-fit: contain;
     background-color: #4a0000;
+    display: none;
+}
+.video-player.active {
     display: block;
 }
 .error-message {
-    color: red;
+    color: #FF0000;
     font-size: 14px;
     margin-top: 5px;
     display: none;
 }
 
 /* Additional Content */
-.additional-content {
+.content-section {
     margin-top: 20px;
-    text-align: left;
+    text-align: center;
+}
+.content-section p {
+    margin: 10px 0;
 }
 
 /* Studio Section */
@@ -162,7 +181,9 @@ body {
     margin-top: 40px;
 }
 .section-title {
-    color: red;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    color: #FF0000;
     font-size: 24px;
     text-align: center;
 }
@@ -173,18 +194,15 @@ body {
     max-width: 400px;
     margin: 0 auto;
 }
-.booking-form label {
-    text-align: left;
-    font-size: 16px;
-}
 .booking-form input,
-.booking-form select,
 .booking-form textarea {
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
+    background: #333;
+    color: #FFF;
 }
 .booking-form button {
     padding: 10px;
@@ -206,57 +224,33 @@ body {
     margin-top: 40px;
     text-align: center;
 }
-
-/* Visuals Section */
-.visuals-section {
-    margin-top: 40px;
-    text-align: center;
+.beats-controls {
+    margin: 10px 0;
 }
-.visuals-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
+.beats-controls button {
+    padding: 10px 20px;
+    background: #FF0000;
+    border: none;
+    color: #FFF;
+    cursor: pointer;
+    margin: 0 5px;
 }
-.visual-item {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
+.beats-section ul {
+    list-style: none;
+    padding: 0;
 }
-
-/* Merch Section */
-.merch-section {
-    margin-top: 40px;
-    text-align: center;
+.beats-section li {
+    cursor: pointer;
+    padding: 10px;
+    margin: 5px 0;
+    background: #333;
 }
-.merch-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+.beats-section li.active {
+    background: #FF0000;
 }
-.merch-item {
-    text-align: center;
-    max-width: 200px;
-}
-.merch-image {
-    width: 100%;
-    max-width: 200px;
-}
-.merch-title {
-    font-size: 18px;
-}
-.merch-price {
-    font-size: 16px;
-}
-.merch-buy-btn {
-    display: inline-block;
-    padding: 8px 15px;
-    background-color: #dc3545;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 14px;
+.beats-section audio {
+    width: 80%;
+    margin: 10px 0;
 }
 
 /* Footer */
@@ -278,6 +272,42 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 50px;
+    }
+    .container {
+        margin-left: 60px;
+    }
+    .title {
+        font-size: 36px;
+    }
+    .countdown {
+        font-size: 16px;
+    }
+    .platform-buttons {
+        flex-direction: column;
+    }
+    .platform-btn,
+    .pre-save {
+        width: 100%;
+    }
+    .album-cover,
+    .video-player {
+        max-width: 100%;
+    }
+    .content-section {
+        text-align: left;
+    }
+    .booking-form input,
+    .booking-form textarea {
+        width: 100%;
+    }
+    .beats-section audio {
+        width: 100%;
+    }
+}
+
 @media (min-width: 600px) {
     .platform-buttons {
         flex-direction: row;
@@ -290,8 +320,4 @@ body {
     .booking-form {
         max-width: 500px;
     }
-    .visual-item {
-        max-width: 400px;
-    }
 }
-​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
