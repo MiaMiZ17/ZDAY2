@@ -1,194 +1,70 @@
-// Debug: Confirm script is loading
-console.log("script.js loaded");
-
-// Define an array of local file paths for the beats
-const beatUrls = [
-    "beats/hard-to-breathe.wav", // Box Truck
-    "beats/orange-fanta.wav",    // Orange Fanta (DQ Collab)
-    "beats/WORKIN-ALL-DAY.wav"   // Workin All Day
-];
-
-// Beat names for display (updated with your new beat names)
-const beatNames = [
-    "Box Truck",
-    "Orange Fanta (DQ Collab)",
-    "Workin All Day"
-];
-
-let currentBeatIndex = 0;
-
-// Immediately start the video sequence for testing
+// Wait for DOM to load
 document.addEventListener('DOMContentLoaded', () => {
-    const albumCover = document.querySelector('.album-cover');
-    const videoPlayer = document.getElementById('main-video');
-    const videoSource = document.getElementById('video-source');
+    const video = document.getElementById('main-video');
     const videoError = document.getElementById('video-error');
-    const beatsAudio = document.getElementById('beats-audio');
-    const prevBeat = document.getElementById('prev-beat');
-    const nextBeat = document.getElementById('next-beat');
-    const beatsList = document.getElementById('beats-list');
+    const albumCover = document.querySelector('.album-cover');
+    const countdown = document.getElementById('countdown');
+    const sources = ['dust.mp4', 'roseburn.mp4'];
+    let currentIndex = 0;
 
-    // Populate beats list
-    beatUrls.forEach((url, index) => {
-        const li = document.createElement('li');
-        li.textContent = beatNames[index] || `Beat ${index + 1}`;
-        li.addEventListener('click', () => playBeat(index));
-        beatsList.appendChild(li);
+    // Handle video errors
+    video.addEventListener('error', () => {
+        videoError.style.display = 'block';
+        videoError.textContent = "Video failed to load. Check file paths ('dust.mp4' or 'roseburn.mp4'), format (MP4 with H.264), or browser compatibility.";
+        albumCover.style.display = 'block'; // Show album cover if video fails
+        video.style.display = 'none';
     });
 
-    // Initialize audio player
-    if (beatsAudio && beatUrls.length > 0) {
-        playBeat(0);
+    // Switch to next video when one ends
+    video.addEventListener('ended', () => {
+        currentIndex = (currentIndex + 1) % sources.length;
+        video.src = sources[currentIndex];
+        video.play();
+    });
+
+    // Countdown logic (simplified placeholder - replace with your actual logic)
+    function updateCountdown() {
+        // Replace with your dynamic countdown logic (e.g., targeting a specific date)
+        let timeLeft = "214d 0h 0m 0s"; // Placeholder
+        countdown.textContent = timeLeft;
     }
+    setInterval(updateCountdown, 1000);
 
-    // Navigation controls
-    prevBeat.addEventListener('click', () => {
-        playBeat(currentBeatIndex - 1 < 0 ? beatUrls.length - 1 : currentBeatIndex - 1);
-    });
+    // Booking form submission using Formspree
+    const bookingForm = document.getElementById('booking-form');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(bookingForm);
+            const data = {
+                serviceType: formData.get('service-type'),
+                name: formData.get('name'),
+                email: formData.get('email'),
+                date: formData.get('date'),
+                message: formData.get('message')
+            };
 
-    nextBeat.addEventListener('click', () => {
-        playBeat(currentBeatIndex + 1 >= beatUrls.length ? 0 : currentBeatIndex + 1);
-    });
-
-    if (albumCover && videoPlayer) {
-        // Fade out album cover after 4 seconds
-        setTimeout(() => {
-            albumCover.classList.add('fade-out');
-            videoPlayer.classList.add('active');
-
-            // Play dust.mp4 first
-            videoSource.setAttribute('src', 'dust.mp4');
-            videoPlayer.load();
-            videoPlayer.play().then(() => {
-                console.log("dust.mp4 playing");
-                // After dust.mp4 ends, play roseburn.mp4
-                videoPlayer.addEventListener('ended', () => {
-                    console.log("dust.mp4 ended, switching to roseburn.mp4");
-                    videoSource.setAttribute('src', 'roseburn.mp4');
-                    videoPlayer.load();
-                    videoPlayer.play().then(() => {
-                        console.log("roseburn.mp4 playing");
-                        // After roseburn.mp4 ends, fade back to album cover and loop
-                        videoPlayer.addEventListener('ended', () => {
-                            console.log("roseburn.mp4 ended, returning to album cover");
-                            videoSource.removeAttribute('src');
-                            videoPlayer.load();
-                            videoPlayer.classList.remove('active');
-                            albumCover.classList.remove('fade-out');
-                            albumCover.classList.add('fade-in');
-                            setTimeout(() => {
-                                albumCover.classList.remove('fade-in');
-                                setTimeout(() => startSequence(), 4000);
-                            }, 2000);
-                        }, { once: true });
-                    }).catch(error => {
-                        console.error("roseburn.mp4 playback failed:", error);
-                        videoError.textContent = `Second video failed: ${error.message}. Check file path ('roseburn.mp4'), format (MP4 with H.264), or browser compatibility.`;
-                        videoError.style.display = 'block';
-                    });
-                }, { once: true });
-            }).catch(error => {
-                console.error("dust.mp4 playback failed:", error);
-                videoError.textContent = `First video failed: ${error.message}. Check file path ('dust.mp4'), format (MP4 with H.264), or browser compatibility.`;
-                videoError.style.display = 'block';
+            // Replace 'YOUR_FORMSPREE_ID' with your Formspree endpoint (e.g., xexampleid)
+            fetch('https://formspree.io/f/YOUR_FORMSPREE_ID', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Booking submitted! We’ll contact you soon.');
+                    bookingForm.reset();
+                } else {
+                    alert('Error submitting booking. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error submitting booking. Please try again.');
             });
-        }, 4000); // 4-second delay for fade-out
-    } else {
-        videoError.style.display = 'block';
+        });
     }
 });
-
-function startSequence() {
-    const albumCover = document.querySelector('.album-cover');
-    const videoPlayer = document.getElementById('main-video');
-    const videoSource = document.getElementById('video-source');
-    const videoError = document.getElementById('video-error');
-
-    if (albumCover && videoPlayer) {
-        albumCover.classList.add('fade-out');
-        videoPlayer.classList.add('active');
-
-        videoSource.setAttribute('src', 'dust.mp4');
-        videoPlayer.load();
-        videoPlayer.play().then(() => {
-            console.log("dust.mp4 playing");
-            videoPlayer.addEventListener('ended', () => {
-                console.log("dust.mp4 ended, switching to roseburn.mp4");
-                videoSource.setAttribute('src', 'roseburn.mp4');
-                videoPlayer.load();
-                videoPlayer.play().then(() => {
-                    console.log("roseburn.mp4 playing");
-                    videoPlayer.addEventListener('ended', () => {
-                        console.log("roseburn.mp4 ended, returning to album cover");
-                        videoSource.removeAttribute('src');
-                        videoPlayer.load();
-                        videoPlayer.classList.remove('active');
-                        albumCover.classList.remove('fade-out');
-                        albumCover.classList.add('fade-in');
-                        setTimeout(() => {
-                            albumCover.classList.remove('fade-in');
-                            setTimeout(() => startSequence(), 4000);
-                        }, 2000);
-                    }, { once: true });
-                }).catch(error => {
-                    console.error("roseburn.mp4 playback failed:", error);
-                    videoError.textContent = `Second video failed: ${error.message}. Check file path ('roseburn.mp4'), format (MP4 with H.264), or browser compatibility.`;
-                    videoError.style.display = 'block';
-                });
-            }, { once: true });
-        }).catch(error => {
-            console.error("dust.mp4 playback failed:", error);
-            videoError.textContent = `First video failed: ${error.message}. Check file path ('dust.mp4'), format (MP4 with H.264), or browser compatibility.`;
-            videoError.style.display = 'block';
-        });
-    } else {
-        videoError.style.display = 'block';
-    }
-}
-
-// Function to play a specific beat
-function playBeat(index) {
-    const beatsAudio = document.getElementById('beats-audio');
-    const beatsList = document.getElementById('beats-list').getElementsByTagName('li');
-    if (beatsAudio && index >= 0 && index < beatUrls.length) {
-        currentBeatIndex = index;
-        beatsAudio.src = beatUrls[index];
-        beatsAudio.load();
-        beatsAudio.play().catch(error => {
-            console.error(`Beat playback failed: ${error.message}`);
-            alert("Error loading beat. Check file path or format.");
-        });
-        // Update active list item
-        for (let li of beatsList) {
-            li.classList.remove('active');
-        }
-        beatsList[index].classList.add('active');
-    }
-}
-
-// Countdown timer set to end on March 14, 2025, at 12 AM UTC
-const countDownDate = Date.UTC(2025, 2, 14, 0, 0, 0); // March 14, 2025, 12 AM UTC
-const x = setInterval(function() {
-    const now = new Date().getTime();
-    const distance = countDownDate - now;
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    if (distance > 0) {
-        document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    } else {
-        document.getElementById("countdown").innerHTML = "EXPIRED!";
-        clearInterval(x);
-    }
-}, 1000);
-
-// Basic form submission (client-side alert for now; replace with backend)
-document.getElementById('booking-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    alert(`Booking submitted!\nService: ${formData.get('service-type')}\nName: ${formData.get('name')}\nEmail: ${formData.get('email')}\nDate: ${formData.get('date')}\nDetails: ${formData.get('message')}`);
-    e.target.reset();
-});
+​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
