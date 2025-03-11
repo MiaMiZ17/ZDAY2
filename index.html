@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preload" href="dust.mp4" as="video">
     <link rel="preload" href="roseburn.mp4" as="video">
-    <link rel="preload" href="beats/hard-to-breathe.wav" as="audio">
-    <link rel="preload" href="beats/orange-fanta.wav" as="audio">
-    <link rel="preload" href="beats/WORKIN-ALL-DAY.wav" as="audio">
 </head>
 <body>
     <!-- Navigation Sidebar -->
@@ -42,8 +39,7 @@
             </li>
             <li class="sidebar-item">
                 <a href="#merch" class="sidebar-link" id="merch-tab" role="button" aria-label="Merch section">
-                    <!-- Enhanced merch icon with Font Awesome for better styling -->
-                    <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+                    <img src="m.png" alt="" class="sidebar-icon" aria-hidden="true"> <!-- Replaced Font Awesome with your merch icon -->
                     <span class="sidebar-text">Merch</span>
                 </a>
             </li>
@@ -96,18 +92,16 @@
                 <figure class="live-stream">
                     <div id="media-content">
                         <img src="ZDAY 2.png" alt="ZDAY 2 Album Cover" class="album-cover">
-                        <!-- Fixed video tag with controls and proper sources -->
                         <video id="main-video" class="video-player" controls muted playsinline>
                             <source id="video-source" src="dust.mp4" type="video/mp4">
                             <source src="roseburn.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
-                        <p id="video-error" class="error-message" aria-live="assertive">Video failed to load. Check file paths ('dust.mp4' or 'roseburn.mp4'), format (MP4 with H.264), or browser compatibility.</p>
+                        <p id="video-error" class="error-message" aria-live="assertive"></p>
                     </div>
                     <figcaption class="visually-hidden">Album promotional content</figcaption>
                 </figure>
             </article>
-            <!-- Additional content for scrolling -->
             <div class="additional-content">
                 <p>More content to enable scrolling...</p>
                 <p>Additional text to test vertical scrolling.</p>
@@ -140,22 +134,10 @@
             <p class="booking-note">We’ll contact you via email to confirm your booking. Check your spam folder!</p>
         </section>
 
-        <!-- Beats Section -->
+        <!-- Beats Section (Removed Audio) -->
         <section id="beats" class="beats-section">
             <h2 class="section-title">Beats by Miami Z17</h2>
-            <p>Stream my beats from local files:</p>
-            <div class="beats-player">
-                <audio controls id="beats-audio" class="beats-audio" oncontextmenu="return false;">
-                    <source src="" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
-                <div class="beats-controls">
-                    <button id="prev-beat" class="beats-control">Previous</button>
-                    <button id="next-beat" class="beats-control">Next</button>
-                </div>
-                <ul class="beats-list" id="beats-list"></ul>
-            </div>
-            <p class="beats-note">Contact me for custom beats or licensing details. Download available after payment system setup.</p>
+            <p>Beats section coming soon!</p>
         </section>
 
         <!-- Visuals Section -->
@@ -165,9 +147,9 @@
             <div class="visuals-gallery">
                 <img src="photo1.jpg" alt="Photo Shoot 1" class="visual-item">
                 <img src="photo2.jpg" alt="Photo Shoot 2" class="visual-item">
-                <iframe src="https://www.youtube.com/embed/gFHHRtLqI0U" title="YouTube Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
-                <iframe src="https://www.youtube.com/embed/wM6tf5eB6Tg" title="YouTube Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
-                <iframe src="https://www.youtube.com/embed/jml5G2Tsn1E" title="YouTube Video 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
+                <iframe src="https://www.youtube.com/embed/gFHHRtLqI0U" title="YouTube Video 1" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
+                <iframe src="https://www.youtube.com/embed/wM6tf5eB6Tg" title="YouTube Video 2" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
+                <iframe src="https://www.youtube.com/embed/jml5G2Tsn1E" title="YouTube Video 3" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
             </div>
             <p class="visuals-note">More works coming soon! Contact for custom shoots.</p>
         </section>
@@ -209,3 +191,4 @@
     <script src="script.js" defer></script>
 </body>
 </html>
+​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
