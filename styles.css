@@ -194,6 +194,11 @@ body {
     max-width: 400px;
     margin: 0 auto;
 }
+.booking-form label {
+    text-align: left;
+    font-size: 16px;
+}
+.booking-form select,
 .booking-form input,
 .booking-form textarea {
     padding: 8px;
@@ -224,6 +229,9 @@ body {
     margin-top: 40px;
     text-align: center;
 }
+.beats-player {
+    margin-top: 10px;
+}
 .beats-controls {
     margin: 10px 0;
 }
@@ -235,22 +243,89 @@ body {
     cursor: pointer;
     margin: 0 5px;
 }
-.beats-section ul {
+.beats-list {
     list-style: none;
     padding: 0;
 }
-.beats-section li {
+.beats-list li {
     cursor: pointer;
     padding: 10px;
     margin: 5px 0;
     background: #333;
 }
-.beats-section li.active {
+.beats-list li.active {
     background: #FF0000;
 }
-.beats-section audio {
+.beats-audio {
     width: 80%;
     margin: 10px 0;
+}
+.beats-note {
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Visuals Section */
+.visuals-section {
+    margin-top: 40px;
+    text-align: center;
+}
+.visuals-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+.visual-item {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+.visuals-note {
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Merch Section */
+.merch-section {
+    margin-top: 40px;
+    text-align: center;
+}
+.merch-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.merch-item {
+    text-align: center;
+    max-width: 200px;
+}
+.merch-image {
+    width: 100%;
+    max-width: 200px;
+}
+.merch-title {
+    font-size: 18px;
+}
+.merch-price {
+    font-size: 16px;
+}
+.merch-buy-btn {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #dc3545;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.merch-note {
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
 }
 
 /* Footer */
@@ -299,12 +374,16 @@ body {
     .content-section {
         text-align: left;
     }
+    .booking-form select,
     .booking-form input,
     .booking-form textarea {
         width: 100%;
     }
-    .beats-section audio {
+    .beats-audio {
         width: 100%;
+    }
+    .visual-item {
+        max-width: 100%;
     }
 }
 
@@ -319,5 +398,8 @@ body {
     }
     .booking-form {
         max-width: 500px;
+    }
+    .visual-item {
+        max-width: 400px;
     }
 }
