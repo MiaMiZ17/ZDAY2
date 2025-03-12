@@ -6,11 +6,9 @@
   <meta name="description" content="Official release page for ZDAY 2 by Miami Z17 - Available March 14, 2025">
   <title>ZDAY 2 - Miami Z17</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="preload" href="videos/Mobile-Vid-Promo.mp4" as="video" type="video/mp4">
   <link rel="preload" href="dust.mp4" as="video">
   <link rel="preload" href="roseburn.mp4" as="video">
-  <link rel="preload" href="https://raw.githubusercontent.com/MiaMiZ17/ZDAY2/main/beats/hard-to-breathe.wav" as="audio" crossorigin="anonymous">
-  <link rel="preload" href="https://raw.githubusercontent.com/MiaMiZ17/ZDAY2/main/beats/orange-fanta.wav" as="audio" crossorigin="anonymous">
-  <link rel="preload" href="https://raw.githubusercontent.com/MiaMiZ17/ZDAY2/main/beats/WORKIN-ALL-DAY.wav" as="audio" crossorigin="anonymous">
 </head>
 <body class="with-sidebar" data-mobile="false">
   <!-- Navigation Sidebar -->
@@ -99,6 +97,7 @@
               <source id="video-source" src="" type="video/mp4">
               Your browser does not support the video tag.
             </video>
+            <button id="play-button" class="play-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px 20px; background: #D23333; color: white; border: none; border-radius: 5px; cursor: pointer; display: none;">Play Video</button>
             <p id="video-error" class="error-message" aria-live="assertive">Video failed to load. Check file paths, format, or browser compatibility.</p>
           </div>
           <figcaption class="visually-hidden">Album promotional content</figcaption>
@@ -143,15 +142,15 @@
       <h2 class="section-title">Beats by Miami Z17</h2>
       <p>Stream my beats from local files:</p>
       <div class="beats-player">
-        <audio controls id="beats-audio" class="beats-audio" oncontextmenu="return false;">
+        <audio controls id="beats-audio" class="beats-audio" oncontextmenu="return false;" style="display: none;">
           <source src="" type="audio/wav">
           Your browser does not support the audio element.
         </audio>
-        <div class="beats-controls">
+        <div class="beats-controls" style="display: none;">
           <button id="prev-beat" class="beats-control">Previous</button>
           <button id="next-beat" class="beats-control">Next</button>
         </div>
-        <ul class="beats-list" id="beats-list"></ul>
+        <ul class="beats-list" id="beats-list" style="display: none;"></ul>
       </div>
       <p class="beats-note">Contact me for custom beats or licensing details. Download available after payment system setup.</p>
     </section>
