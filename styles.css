@@ -43,9 +43,10 @@ body {
   padding-top: 30px;
   border-right: 3px solid var(--blood-red);
   z-index: 1000;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   align-items: center;
+  visibility: visible !important;
 }
 
 .sidebar-list {
@@ -101,13 +102,22 @@ body {
 .container {
   position: relative;
   z-index: 1;
-  margin-left: 80px;
   padding: 40px 20px;
-  width: calc(100% - 80px);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Fallback for when sidebar is not rendered */
+body:not(.with-sidebar) .container {
+  margin-left: 0;
+  width: 100%;
+}
+
+body.with-sidebar .container {
+  margin-left: 80px;
+  width: calc(100% - 80px);
 }
 
 /* Header */
@@ -181,13 +191,16 @@ body {
 
 /* Platform Buttons */
 .platform-buttons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 15px;
   margin: var(--space-lg) 0;
 }
 
 .platform-btn {
+  flex: 1 1 150px; /* Ensure buttons have a minimum width */
+  max-width: 200px; /* Limit max width for consistency */
   padding: 15px 20px;
   text-align: center;
   text-decoration: none;
@@ -262,7 +275,7 @@ body {
   border-radius: 15px;
   opacity: 1;
   z-index: 2;
-  transition: all 4s ease; /* 4-second fade-out */
+  transition: all 4s ease;
   will-change: transform, opacity;
 }
 
@@ -297,7 +310,7 @@ body {
   opacity: 1;
   transform: scale(1);
   filter: none;
-  transition: all 2s ease; /* 2-second fade-in */
+  transition: all 2s ease;
 }
 
 /* Error Handling */
@@ -572,6 +585,16 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+    padding-top: 20px;
+  }
+  
+  body.with-sidebar .container {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+  }
+
   .title {
     font-size: 3rem;
   }
@@ -582,28 +605,17 @@ body {
   }
   
   .platform-buttons {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+  
+  .platform-btn {
+    max-width: 100%; /* Ensure buttons stack properly */
   }
   
   #media-content {
     min-height: 400px;
   }
   
-  .sidebar {
-    width: 60px;
-    padding-top: 20px;
-  }
-  
-  .sidebar-icon {
-    width: 28px;
-    height: 28px;
-  }
-  
-  .container {
-    margin-left: 60px;
-    width: calc(100% - 60px);
-  }
-
   .section-title {
     font-size: 2.5rem;
   }
@@ -642,6 +654,9 @@ body {
 @media (max-width: 480px) {
   .container {
     padding: 20px 10px;
+  }
+  
+  body.with-sidebar .container {
     margin-left: 50px;
     width: calc(100% - 50px);
   }
@@ -669,3 +684,4 @@ body {
     font-size: 0.65rem;
   }
 }
+
