@@ -17,11 +17,12 @@ const beatNames = [
 
 let currentBeatIndex = 0;
 
-// Detect if sidebar is rendered
+// Detect mobile and adjust layout
 document.addEventListener('DOMContentLoaded', () => {
-  const sidebar = document.querySelector('.sidebar');
-  if (sidebar && window.getComputedStyle(sidebar).display === 'none') {
-    document.body.classList.remove('with-sidebar');
+  if (window.innerWidth <= 768) {
+    document.body.setAttribute('data-mobile', 'true');
+  } else {
+    document.body.setAttribute('data-mobile', 'false');
   }
 
   const albumCover = document.querySelector('.album-cover');
@@ -41,18 +42,24 @@ document.addEventListener('DOMContentLoaded', () => {
     beatsList.appendChild(li);
   });
 
-  // Initialize audio player
+  // Initialize audio player with error fallback
   if (beatsAudio && beatUrls.length > 0) {
-    playBeat(0);
+    playBeat(0).catch(() => {
+      alert("Error loading beats. Check file paths or browser settings. Consider hosting files locally.");
+    });
   }
 
   // Navigation controls
   prevBeat.addEventListener('click', () => {
-    playBeat(currentBeatIndex - 1 < 0 ? beatUrls.length - 1 : currentBeatIndex - 1);
+    playBeat(currentBeatIndex - 1 < 0 ? beatUrls.length - 1 : currentBeatIndex - 1).catch(() => {
+      alert("Error loading previous beat.");
+    });
   });
 
   nextBeat.addEventListener('click', () => {
-    playBeat(currentBeatIndex + 1 >= beatUrls.length ? 0 : currentBeatIndex + 1);
+    playBeat(currentBeatIndex + 1 >= beatUrls.length ? 0 : currentBeatIndex + 1).catch(() => {
+      alert("Error loading next beat.");
+    });
   });
 
   if (albumCover && videoPlayer) {
@@ -145,21 +152,23 @@ function startSequence() {
   }
 }
 
-function playBeat(index) {
+async function playBeat(index) {
   const beatsAudio = document.getElementById('beats-audio');
   const beatsList = document.getElementById('beats-list').getElementsByTagName('li');
   if (beatsAudio && index >= 0 && index < beatUrls.length) {
     currentBeatIndex = index;
     beatsAudio.src = beatUrls[index];
     beatsAudio.load();
-    beatsAudio.play().catch(error => {
+    try {
+      await beatsAudio.play();
+      for (let li of beatsList) {
+        li.classList.remove('active');
+      }
+      beatsList[index].classList.add('active');
+    } catch (error) {
       console.error(`Beat playback failed: ${error.message}`);
-      alert("Error loading beat. Check file path or format.");
-    });
-    for (let li of beatsList) {
-      li.classList.remove('active');
+      throw new Error("Beat playback failed");
     }
-    beatsList[index].classList.add('active');
   }
 }
 
