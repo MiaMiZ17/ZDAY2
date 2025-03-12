@@ -17,8 +17,13 @@ const beatNames = [
 
 let currentBeatIndex = 0;
 
-// Immediately start the video sequence with smoother transitions
+// Detect if sidebar is rendered
 document.addEventListener('DOMContentLoaded', () => {
+  const sidebar = document.querySelector('.sidebar');
+  if (sidebar && window.getComputedStyle(sidebar).display === 'none') {
+    document.body.classList.remove('with-sidebar');
+  }
+
   const albumCover = document.querySelector('.album-cover');
   const videoPlayer = document.getElementById('main-video');
   const videoSource = document.getElementById('video-source');
@@ -51,9 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (albumCover && videoPlayer) {
-    // Start with album cover visible, fade into videos
     setTimeout(() => {
-      albumCover.classList.add('fade-out'); // 4-second fade-out to reveal video
+      albumCover.classList.add('fade-out');
       setTimeout(() => {
         videoPlayer.classList.add('active');
         videoSource.setAttribute('src', 'dust.mp4');
@@ -70,10 +74,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("roseburn.mp4 ended, fading back to album cover");
                 videoPlayer.classList.remove('active');
                 albumCover.classList.remove('fade-out');
-                albumCover.classList.add('fade-in'); // 2-second fade-in
+                albumCover.classList.add('fade-in');
                 setTimeout(() => {
                   albumCover.classList.remove('fade-in');
-                  setTimeout(() => startSequence(), 4000); // Restart after 4 seconds
+                  setTimeout(() => startSequence(), 4000);
                 }, 2000);
               }, { once: true });
             }).catch(error => {
@@ -87,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
           videoError.textContent = `First video failed: ${error.message}.`;
           videoError.style.display = 'block';
         });
-      }, 4000); // Sync with fade-out duration
-    }, 0); // Immediate start with album cover
+      }, 4000);
+    }, 0);
   } else {
     videoError.style.display = 'block';
   }
@@ -135,7 +139,7 @@ function startSequence() {
         videoError.textContent = `First video failed: ${error.message}.`;
         videoError.style.display = 'block';
       });
-    }, 4000); // Sync with fade-out
+    }, 4000);
   } else {
     videoError.style.display = 'block';
   }
@@ -160,14 +164,17 @@ function playBeat(index) {
 }
 
 // Countdown timer set to end on March 14, 2025, at 12 AM UTC
-const countDownDate = Date.UTC(2025, 2, 14, 0, 0, 0);
+const countDownDate = new Date(Date.UTC(2025, 2, 14, 0, 0, 0)).getTime();
 const x = setInterval(function() {
-  const now = new Date().getTime();
-  const distance = countDownDate - now;
+  const now = new Date().toISOString();
+  const nowUTC = new Date(now).getTime();
+  const distance = countDownDate - nowUTC;
+
   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
   if (distance > 0) {
     document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
   } else {
