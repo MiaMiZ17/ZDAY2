@@ -1,22 +1,6 @@
 // Debug: Confirm script is loading
 console.log("script.js loaded");
 
-// Define an array of GitHub raw URLs for the beats
-const beatUrls = [
-  "https://raw.githubusercontent.com/MiaMiZ17/ZDAY2/main/beats/hard-to-breathe.wav",
-  "https://raw.githubusercontent.com/MiaMiZ17/ZDAY2/main/beats/orange-fanta.wav",
-  "https://raw.githubusercontent.com/MiaMiZ17/ZDAY2/main/beats/WORKIN-ALL-DAY.wav"
-];
-
-// Beat names for display
-const beatNames = [
-  "Box Truck",
-  "Orange Fanta (DQ Collab)",
-  "Workin All Day"
-];
-
-let currentBeatIndex = 0;
-
 // Function to detect if the user is on a mobile device
 function isMobile() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -34,31 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const videoPlayer = document.getElementById('main-video');
   const videoSource = document.getElementById('video-source');
   const videoError = document.getElementById('video-error');
-  const beatsAudio = document.getElementById('beats-audio');
-  const prevBeat = document.getElementById('prev-beat');
-  const nextBeat = document.getElementById('next-beat');
-  const beatsList = document.getElementById('beats-list');
-
-  // Populate beats list (for display only, no playback)
-  beatUrls.forEach((url, index) => {
-    const li = document.createElement('li');
-    li.textContent = beatNames[index] || `Beat ${index + 1}`;
-    li.addEventListener('click', () => playBeat(index));
-    beatsList.appendChild(li);
-  });
-
-  // Navigation controls for beats (keeping for future use, but no playback occurs)
-  prevBeat.addEventListener('click', () => {
-    playBeat(currentBeatIndex - 1 < 0 ? beatUrls.length - 1 : currentBeatIndex - 1).catch(() => {
-      alert("Error loading previous beat.");
-    });
-  });
-
-  nextBeat.addEventListener('click', () => {
-    playBeat(currentBeatIndex + 1 >= beatUrls.length ? 0 : currentBeatIndex + 1).catch(() => {
-      alert("Error loading next beat.");
-    });
-  });
+  const playButton = document.getElementById('play-button');
 
   // Video sequence logic
   if (albumCover && videoPlayer) {
@@ -67,18 +27,23 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         videoPlayer.classList.add('active');
         if (isMobile()) {
-          // Load mobile-specific video
+          // Load mobile-specific video and show play button if autoplay fails
           videoSource.setAttribute('src', 'videos/Mobile-Vid-Promo.mp4');
-          videoPlayer.setAttribute('muted', ''); // Ensure muted for autoplay
-          videoPlayer.play().catch(error => {
-            console.error("Mobile video playback failed:", error);
-            videoError.textContent = `Video failed: ${error.message}.`;
-            videoError.style.display = 'block';
+          videoPlayer.load();
+          playButton.style.display = 'block'; // Show play button on mobile
+          playButton.addEventListener('click', () => {
+            videoPlayer.play().then(() => {
+              console.log("Mobile video playing");
+              playButton.style.display = 'none'; // Hide button after play
+            }).catch(error => {
+              console.error("Mobile video playback failed:", error);
+              videoError.textContent = `Video failed: ${error.message}.`;
+              videoError.style.display = 'block';
+            });
           });
         } else {
           // Load desktop video sequence
           videoSource.setAttribute('src', 'dust.mp4');
-          videoPlayer.setAttribute('muted', ''); // Keep muted for autoplay
           videoPlayer.play().then(() => {
             console.log("dust.mp4 playing");
             videoPlayer.addEventListener('ended', () => {
@@ -122,24 +87,30 @@ function startSequence() {
   const videoPlayer = document.getElementById('main-video');
   const videoSource = document.getElementById('video-source');
   const videoError = document.getElementById('video-error');
+  const playButton = document.getElementById('play-button');
 
   if (albumCover && videoPlayer) {
     albumCover.classList.add('fade-out');
     setTimeout(() => {
       videoPlayer.classList.add('active');
       if (isMobile()) {
-        // Load mobile-specific video
+        // Load mobile-specific video and show play button if autoplay fails
         videoSource.setAttribute('src', 'videos/Mobile-Vid-Promo.mp4');
-        videoPlayer.setAttribute('muted', ''); // Ensure muted for autoplay
-        videoPlayer.play().catch(error => {
-          console.error("Mobile video playback failed:", error);
-          videoError.textContent = `Video failed: ${error.message}.`;
-          videoError.style.display = 'block';
+        videoPlayer.load();
+        playButton.style.display = 'block'; // Show play button on mobile
+        playButton.addEventListener('click', () => {
+          videoPlayer.play().then(() => {
+            console.log("Mobile video playing");
+            playButton.style.display = 'none'; // Hide button after play
+          }).catch(error => {
+            console.error("Mobile video playback failed:", error);
+            videoError.textContent = `Video failed: ${error.message}.`;
+            videoError.style.display = 'block';
+          });
         });
       } else {
         // Load desktop video sequence
         videoSource.setAttribute('src', 'dust.mp4');
-        videoPlayer.setAttribute('muted', ''); // Keep muted for autoplay
         videoPlayer.play().then(() => {
           console.log("dust.mp4 playing");
           videoPlayer.addEventListener('ended', () => {
@@ -173,27 +144,6 @@ function startSequence() {
     }, 4000);
   } else {
     videoError.style.display = 'block';
-  }
-}
-
-// Function to play beats (disabled to prevent playback, kept for future use)
-async function playBeat(index) {
-  const beatsAudio = document.getElementById('beats-audio');
-  const beatsList = document.getElementById('beats-list').getElementsByTagName('li');
-  if (beatsAudio && index >= 0 && index < beatUrls.length) {
-    currentBeatIndex = index;
-    beatsAudio.src = beatUrls[index];
-    beatsAudio.load();
-    try {
-      await beatsAudio.play();
-      for (let li of beatsList) {
-        li.classList.remove('active');
-      }
-      beatsList[index].classList.add('active');
-    } catch (error) {
-      console.error(`Beat playback failed: ${error.message}`);
-      throw new Error("Beat playback failed");
-    }
   }
 }
 
