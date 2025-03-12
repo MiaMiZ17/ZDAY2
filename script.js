@@ -17,7 +17,7 @@ const beatNames = [
 
 let currentBeatIndex = 0;
 
-// Video and beats sequence
+// Immediately start the video sequence with smoother transitions
 document.addEventListener('DOMContentLoaded', () => {
   const albumCover = document.querySelector('.album-cover');
   const videoPlayer = document.getElementById('main-video');
@@ -50,10 +50,59 @@ document.addEventListener('DOMContentLoaded', () => {
     playBeat(currentBeatIndex + 1 >= beatUrls.length ? 0 : currentBeatIndex + 1);
   });
 
-  // Start video sequence
   if (albumCover && videoPlayer) {
+    // Start with album cover visible, fade into videos
     setTimeout(() => {
-      albumCover.classList.add('fade-out');
+      albumCover.classList.add('fade-out'); // 4-second fade-out to reveal video
+      setTimeout(() => {
+        videoPlayer.classList.add('active');
+        videoSource.setAttribute('src', 'dust.mp4');
+        videoPlayer.load();
+        videoPlayer.play().then(() => {
+          console.log("dust.mp4 playing");
+          videoPlayer.addEventListener('ended', () => {
+            console.log("dust.mp4 ended, switching to roseburn.mp4");
+            videoSource.setAttribute('src', 'roseburn.mp4');
+            videoPlayer.load();
+            videoPlayer.play().then(() => {
+              console.log("roseburn.mp4 playing");
+              videoPlayer.addEventListener('ended', () => {
+                console.log("roseburn.mp4 ended, fading back to album cover");
+                videoPlayer.classList.remove('active');
+                albumCover.classList.remove('fade-out');
+                albumCover.classList.add('fade-in'); // 2-second fade-in
+                setTimeout(() => {
+                  albumCover.classList.remove('fade-in');
+                  setTimeout(() => startSequence(), 4000); // Restart after 4 seconds
+                }, 2000);
+              }, { once: true });
+            }).catch(error => {
+              console.error("roseburn.mp4 playback failed:", error);
+              videoError.textContent = `Second video failed: ${error.message}.`;
+              videoError.style.display = 'block';
+            });
+          }, { once: true });
+        }).catch(error => {
+          console.error("dust.mp4 playback failed:", error);
+          videoError.textContent = `First video failed: ${error.message}.`;
+          videoError.style.display = 'block';
+        });
+      }, 4000); // Sync with fade-out duration
+    }, 0); // Immediate start with album cover
+  } else {
+    videoError.style.display = 'block';
+  }
+});
+
+function startSequence() {
+  const albumCover = document.querySelector('.album-cover');
+  const videoPlayer = document.getElementById('main-video');
+  const videoSource = document.getElementById('video-source');
+  const videoError = document.getElementById('video-error');
+
+  if (albumCover && videoPlayer) {
+    albumCover.classList.add('fade-out');
+    setTimeout(() => {
       videoPlayer.classList.add('active');
       videoSource.setAttribute('src', 'dust.mp4');
       videoPlayer.load();
@@ -66,9 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
           videoPlayer.play().then(() => {
             console.log("roseburn.mp4 playing");
             videoPlayer.addEventListener('ended', () => {
-              console.log("roseburn.mp4 ended, returning to album cover");
-              videoSource.removeAttribute('src');
-              videoPlayer.load();
+              console.log("roseburn.mp4 ended, fading back to album cover");
               videoPlayer.classList.remove('active');
               albumCover.classList.remove('fade-out');
               albumCover.classList.add('fade-in');
@@ -88,54 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         videoError.textContent = `First video failed: ${error.message}.`;
         videoError.style.display = 'block';
       });
-    }, 4000);
-  } else {
-    videoError.style.display = 'block';
-  }
-});
-
-function startSequence() {
-  const albumCover = document.querySelector('.album-cover');
-  const videoPlayer = document.getElementById('main-video');
-  const videoSource = document.getElementById('video-source');
-  const videoError = document.getElementById('video-error');
-
-  if (albumCover && videoPlayer) {
-    albumCover.classList.add('fade-out');
-    videoPlayer.classList.add('active');
-    videoSource.setAttribute('src', 'dust.mp4');
-    videoPlayer.load();
-    videoPlayer.play().then(() => {
-      console.log("dust.mp4 playing");
-      videoPlayer.addEventListener('ended', () => {
-        console.log("dust.mp4 ended, switching to roseburn.mp4");
-        videoSource.setAttribute('src', 'roseburn.mp4');
-        videoPlayer.load();
-        videoPlayer.play().then(() => {
-          console.log("roseburn.mp4 playing");
-          videoPlayer.addEventListener('ended', () => {
-            console.log("roseburn.mp4 ended, returning to album cover");
-            videoSource.removeAttribute('src');
-            videoPlayer.load();
-            videoPlayer.classList.remove('active');
-            albumCover.classList.remove('fade-out');
-            albumCover.classList.add('fade-in');
-            setTimeout(() => {
-              albumCover.classList.remove('fade-in');
-              setTimeout(() => startSequence(), 4000);
-            }, 2000);
-          }, { once: true });
-        }).catch(error => {
-          console.error("roseburn.mp4 playback failed:", error);
-          videoError.textContent = `Second video failed: ${error.message}.`;
-          videoError.style.display = 'block';
-        });
-      }, { once: true });
-    }).catch(error => {
-      console.error("dust.mp4 playback failed:", error);
-      videoError.textContent = `First video failed: ${error.message}.`;
-      videoError.style.display = 'block';
-    });
+    }, 4000); // Sync with fade-out
   } else {
     videoError.style.display = 'block';
   }
