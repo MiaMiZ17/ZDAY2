@@ -31,53 +31,57 @@ document.addEventListener('DOMContentLoaded', async () => {
   const videoError = document.getElementById('video-error');
   const playButton = document.getElementById('play-button');
 
+  // Preload the appropriate video based on device
+  if (isMobile()) {
+    const mobileVideoUrl = 'videos/Mobile-Vid-Promo.mp4';
+    const isAccessible = await testVideoUrl(mobileVideoUrl);
+    if (isAccessible) {
+      videoSource.setAttribute('src', mobileVideoUrl);
+      videoPlayer.load();
+    } else {
+      videoError.textContent = `Mobile video not found at ${mobileVideoUrl}. Please check the file path.`;
+      videoError.style.display = 'block';
+      return;
+    }
+  } else {
+    const firstVideoUrl = 'videos/dust.mp4';
+    const secondVideoUrl = 'videos/roseburn.mp4';
+    const firstAccessible = await testVideoUrl(firstVideoUrl);
+    const secondAccessible = await testVideoUrl(secondVideoUrl);
+
+    if (!firstAccessible || !secondAccessible) {
+      videoError.textContent = `Desktop videos not found. Check paths: ${firstVideoUrl}, ${secondVideoUrl}.`;
+      videoError.style.display = 'block';
+      return;
+    }
+    videoSource.setAttribute('src', firstVideoUrl);
+    videoPlayer.load();
+  }
+
   // Video sequence logic
   if (albumCover && videoPlayer) {
-    setTimeout(async () => {
+    setTimeout(() => {
       albumCover.classList.add('fade-out');
-      setTimeout(async () => {
+      setTimeout(() => {
         videoPlayer.classList.add('active');
         if (isMobile()) {
-          const mobileVideoUrl = 'videos/Mobile-Vid-Promo.mp4';
-          const isAccessible = await testVideoUrl(mobileVideoUrl);
-          if (isAccessible) {
-            videoSource.setAttribute('src', mobileVideoUrl);
-            videoPlayer.load();
-            playButton.style.display = 'block'; // Show play button on mobile
-            playButton.addEventListener('click', () => {
-              videoPlayer.play().then(() => {
-                console.log("Mobile video playing");
-                playButton.style.display = 'none'; // Hide button after play
-              }).catch(error => {
-                console.error("Mobile video playback failed:", error);
-                videoError.textContent = `Mobile video failed: ${error.message}.`;
-                videoError.style.display = 'block';
-              });
+          playButton.style.display = 'block'; // Show play button on mobile
+          playButton.addEventListener('click', () => {
+            videoPlayer.play().then(() => {
+              console.log("Mobile video playing");
+              playButton.style.display = 'none'; // Hide button after play
+            }).catch(error => {
+              console.error("Mobile video playback failed:", error);
+              videoError.textContent = `Mobile video failed: ${error.message}.`;
+              videoError.style.display = 'block';
             });
-            // Attempt autoplay
-            videoPlayer.play().catch(error => {
-              console.error("Mobile video autoplay failed:", error);
-              // Play button is already shown, so no further action needed
-            });
-          } else {
-            videoError.textContent = `Mobile video not found at ${mobileVideoUrl}. Please check the file path.`;
-            videoError.style.display = 'block';
-          }
+          });
+          // Attempt autoplay
+          videoPlayer.play().catch(error => {
+            console.error("Mobile video autoplay failed:", error);
+            // Play button is already shown, so no further action needed
+          });
         } else {
-          // Load desktop video sequence
-          const firstVideoUrl = 'videos/dust.mp4';
-          const secondVideoUrl = 'videos/roseburn.mp4';
-          const firstAccessible = await testVideoUrl(firstVideoUrl);
-          const secondAccessible = await testVideoUrl(secondVideoUrl);
-
-          if (!firstAccessible || !secondAccessible) {
-            videoError.textContent = `Desktop videos not found. Check paths: ${firstVideoUrl}, ${secondVideoUrl}.`;
-            videoError.style.display = 'block';
-            return;
-          }
-
-          videoSource.setAttribute('src', firstVideoUrl);
-          videoPlayer.load();
           playButton.style.display = 'block'; // Show play button on desktop too
           playButton.addEventListener('click', () => {
             videoPlayer.play().then(() => {
@@ -85,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               playButton.style.display = 'none'; // Hide button after play
               videoPlayer.addEventListener('ended', () => {
                 console.log("dust.mp4 ended, switching to roseburn.mp4");
-                videoSource.setAttribute('src', secondVideoUrl);
+                videoSource.setAttribute('src', 'videos/roseburn.mp4');
                 videoPlayer.load();
                 videoPlayer.play().then(() => {
                   console.log("roseburn.mp4 playing");
@@ -117,7 +121,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Play button is already shown, so no further action needed
           });
         }
-      }, 4000);
+      }, 1500); // Reduced delay to overlap fade-out and fade-in
     }, 0);
   } else {
     videoError.style.display = 'block';
@@ -202,48 +206,26 @@ function startSequence() {
 
   if (albumCover && videoPlayer) {
     albumCover.classList.add('fade-out');
-    setTimeout(async () => {
+    setTimeout(() => {
       videoPlayer.classList.add('active');
       if (isMobile()) {
-        const mobileVideoUrl = 'videos/Mobile-Vid-Promo.mp4';
-        const isAccessible = await testVideoUrl(mobileVideoUrl);
-        if (isAccessible) {
-          videoSource.setAttribute('src', mobileVideoUrl);
-          videoPlayer.load();
-          playButton.style.display = 'block'; // Show play button on mobile
-          playButton.addEventListener('click', () => {
-            videoPlayer.play().then(() => {
-              console.log("Mobile video playing");
-              playButton.style.display = 'none'; // Hide button after play
-            }).catch(error => {
-              console.error("Mobile video playback failed:", error);
-              videoError.textContent = `Mobile video failed: ${error.message}.`;
-              videoError.style.display = 'block';
-            });
+        playButton.style.display = 'block'; // Show play button on mobile
+        playButton.addEventListener('click', () => {
+          videoPlayer.play().then(() => {
+            console.log("Mobile video playing");
+            playButton.style.display = 'none'; // Hide button after play
+          }).catch(error => {
+            console.error("Mobile video playback failed:", error);
+            videoError.textContent = `Mobile video failed: ${error.message}.`;
+            videoError.style.display = 'block';
           });
-          // Attempt autoplay
-          videoPlayer.play().catch(error => {
-            console.error("Mobile video autoplay failed:", error);
-            // Play button is already shown, so no further action needed
-          });
-        } else {
-          videoError.textContent = `Mobile video not found at ${mobileVideoUrl}. Please check the file path.`;
-          videoError.style.display = 'block';
-        }
+        });
+        // Attempt autoplay
+        videoPlayer.play().catch(error => {
+          console.error("Mobile video autoplay failed:", error);
+          // Play button is already shown, so no further action needed
+        });
       } else {
-        const firstVideoUrl = 'videos/dust.mp4';
-        const secondVideoUrl = 'videos/roseburn.mp4';
-        const firstAccessible = await testVideoUrl(firstVideoUrl);
-        const secondAccessible = await testVideoUrl(secondVideoUrl);
-
-        if (!firstAccessible || !secondAccessible) {
-          videoError.textContent = `Desktop videos not found. Check paths: ${firstVideoUrl}, ${secondVideoUrl}.`;
-          videoError.style.display = 'block';
-          return;
-        }
-
-        videoSource.setAttribute('src', firstVideoUrl);
-        videoPlayer.load();
         playButton.style.display = 'block'; // Show play button on desktop
         playButton.addEventListener('click', () => {
           videoPlayer.play().then(() => {
@@ -251,7 +233,7 @@ function startSequence() {
             playButton.style.display = 'none'; // Hide button after play
             videoPlayer.addEventListener('ended', () => {
               console.log("dust.mp4 ended, switching to roseburn.mp4");
-              videoSource.setAttribute('src', secondVideoUrl);
+              videoSource.setAttribute('src', 'videos/roseburn.mp4');
               videoPlayer.load();
               videoPlayer.play().then(() => {
                 console.log("roseburn.mp4 playing");
@@ -283,7 +265,7 @@ function startSequence() {
           // Play button is already shown, so no further action needed
         });
       }
-    }, 4000);
+    }, 1500); // Reduced delay to overlap fade-out and fade-in
   } else {
     videoError.style.display = 'block';
   }
