@@ -6,360 +6,180 @@ function isMobile() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
-// Function to test if a video URL is accessible
-async function testVideoUrl(url) {
+// Function to test if a media URL (video or audio) is accessible
+async function testMediaUrl(url) {
   try {
     const response = await fetch(url, { method: 'HEAD' });
-    return response.ok;
+    if (response.ok) {
+      console.log(`Media accessible at ${url}`);
+      return true;
+    } else {
+      console.error(`Media not accessible at ${url}, status: ${response.status}`);
+      return false;
+    }
   } catch (error) {
-    console.error(`Failed to access video at ${url}:`, error);
+    console.error(`Failed to access media at ${url}:`, error);
     return false;
   }
 }
 
 // Detect mobile and adjust layout
 document.addEventListener('DOMContentLoaded', async () => {
+  // Set mobile attribute
   if (window.innerWidth <= 768) {
     document.body.setAttribute('data-mobile', 'true');
   } else {
     document.body.setAttribute('data-mobile', 'false');
   }
 
+  // Video setup
   const albumCover = document.querySelector('.album-cover');
   const videoPlayer = document.getElementById('main-video');
   const videoSource = document.getElementById('video-source');
   const videoError = document.getElementById('video-error');
   const playButton = document.getElementById('play-button');
 
-  // Preload the appropriate video based on device
-  if (isMobile()) {
-    const mobileVideoUrl = 'videos/Mobile-Vid-Promo.mp4';
-    const isAccessible = await testVideoUrl(mobileVideoUrl);
-    if (isAccessible) {
-      videoSource.setAttribute('src', mobileVideoUrl);
-      videoPlayer.load();
-    } else {
-      videoError.textContent = `Mobile video not found at ${mobileVideoUrl}. Please check the file path.`;
-      videoError.style.display = 'block';
-      return;
-    }
-  } else {
-    const firstVideoUrl = 'videos/dust.mp4';
-    const secondVideoUrl = 'videos/roseburn.mp4';
-    const firstAccessible = await testVideoUrl(firstVideoUrl);
-    const secondAccessible = await testVideoUrl(secondVideoUrl);
-
-    if (!firstAccessible || !secondAccessible) {
-      videoError.textContent = `Desktop videos not found. Check paths: ${firstVideoUrl}, ${secondVideoUrl}.`;
-      videoError.style.display = 'block';
-      return;
-    }
-    videoSource.setAttribute('src', firstVideoUrl);
+  // Use a single video for both mobile and desktop
+  const videoUrl = 'videos/Mobile-Vid-Promo.mp4';
+  const isVideoAccessible = await testMediaUrl(videoUrl);
+  if (isVideoAccessible) {
+    videoSource.setAttribute('src', videoUrl);
     videoPlayer.load();
+  } else {
+    videoError.textContent = `Video not found at ${videoUrl}. Please check the file path.`;
+    videoError.style.display = 'block';
   }
 
   // Video sequence logic
   if (albumCover && videoPlayer) {
-    setTimeout(async () => {
-      setTimeout(() => {
-        albumCover.classList.add('fade-out');
-        setTimeout(async () => {
-          setTimeout(() => {
-            videoPlayer.classList.add('active');
-            if (isMobile()) {
-              const mobileVideoUrl = 'videos/Mobile-Vid-Promo.mp4';
-              const isAccessible = await testVideoUrl(mobileVideoUrl);
-              if (isAccessible) {
-                videoSource.setAttribute('src', mobileVideoUrl);
-                videoPlayer.load();
-                playButton.style.display = 'block'; // Show play button on mobile
-                playButton.addEventListener('click', () => {
-                  videoPlayer.play().then(() => {
-                    console.log("Mobile video playing");
-                    playButton.style.display = 'none'; // Hide button after play
-                  }).catch(error => {
-                    console.error("Mobile video playback failed:", error);
-                    videoError.textContent = `Mobile video failed: ${error.message}.`;
-                    videoError.style.display = 'block';
-                  });
-                });
-                // Attempt autoplay
-                videoPlayer.play().catch(error => {
-                  console.error("Mobile video autoplay failed:", error);
-                  // Play button is already shown, so no further action needed
-                  playButton.style.display = 'block'; // Show play button on mobile
-                  playButton.addEventListener('click', () => {
-                    videoPlayer.play().then(() => {
-                      console.log("Mobile video playing");
-                      playButton.style.display = 'none'; // Hide button after play
-                    }).catch(error => {
-                      console.error("Mobile video playback failed:", error);
-                      videoError.textContent = `Mobile video failed: ${error.message}.`;
-                      videoError.style.display = 'block';
-                    });
-                  } else {
-                    videoError.textContent = `Mobile video not found at ${mobileVideoUrl}. Please check the file path.`;
-                    videoError.style.display = 'block';
-                  }
-                });
-                // Attempt autoplay
-                videoPlayer.play().catch(error => {
-                  console.error("Mobile video autoplay failed:", error);
-                  // Play button is already shown, so no further action needed
-                });
-              } else {
-                videoError.textContent = `Mobile video not found at ${mobileVideoUrl}. Please check the file path.`;
-                videoError.style.display = 'block';
-              }
-            } else {
-              // Load desktop video sequence
-              const firstVideoUrl = 'videos/dust.mp4';
-              const secondVideoUrl = 'videos/roseburn.mp4';
-              const firstAccessible = await testVideoUrl(firstVideoUrl);
-              const secondAccessible = await testVideoUrl(secondVideoUrl);
-
-              if (!firstAccessible || !secondAccessible) {
-                videoError.textContent = `Desktop videos not found. Check paths: ${firstVideoUrl}, ${secondVideoUrl}.`;
-                videoError.style.display = 'block';
-                return;
-              }
-
-              videoSource.setAttribute('src', firstVideoUrl);
-              videoPlayer.load();
-              playButton.style.display = 'block'; // Show play button on desktop
-              playButton.addEventListener('click', () => {
-                videoPlayer.play().then(() => {
-                  console.log("dust.mp4 playing");
-                  playButton.style.display = 'none'; // Hide button after play
-                  videoPlayer.addEventListener('ended', () => {
-                    console.log("dust.mp4 ended, switching to roseburn.mp4");
-                    videoSource.setAttribute('src', secondVideoUrl);
-                    videoSource.setAttribute('src', 'videos/roseburn.mp4');
-                    videoPlayer.load();
-                    videoPlayer.play().then(() => {
-                      console.log("roseburn.mp4 playing");
-                      videoPlayer.addEventListener('ended', () => {
-                        console.log("roseburn.mp4 ended, fading back to album cover");
-                        videoPlayer.classList.remove('active');
-                        albumCover.classList.remove('fade-out');
-                        albumCover.classList.add('fade-in');
-                        setTimeout(() => {
-                          albumCover.classList.remove('fade-in');
-                          setTimeout(() => startSequence(), 4000);
-                        }, 2000);
-                      }, { once: true });
-                    }).catch(error => {
-                      console.error("roseburn.mp4 playback failed:", error);
-                      videoError.textContent = `Second video failed: ${error.message}.`;
-                      videoError.style.display = 'block';
-                    });
-                  }, { once: true });
-                }).catch(error => {
-                  console.error("dust.mp4 playback failed:", error);
-                  videoError.textContent = `First video failed: ${error.message}.`;
-                  videoError.style.display = 'block';
-                });
-              });
-              // Attempt autoplay
-              videoPlayer.play().catch(error => {
-                console.error("Desktop video autoplay failed:", error);
-                // Play button is already shown, so no further action needed
-              });
-            }
-          }, 4000);
-        }, 1500); // Reduced delay to overlap fade-out and fade-in
-      }, 0);
-    } else {
-      videoError.style.display = 'block';
-    }
-
-    // Audio player setup
-    const audioPlayer = document.getElementById('beats-audio');
-    const audioSource = document.getElementById('beats-source');
-    const playButtonAudio = document.getElementById('play-beat');
-    const prevButton = document.getElementById('prev-beat');
-    const nextButton = document.getElementById('next-beat');
-    const beatsList = document.getElementById('beats-list');
-    let currentBeatIndex = 0;
-    const beatSources = [
-      'beats/WORKIN-ALL-DAY.wav',
-      'beats/hard-to-breathe.wav',
-      'beats/orange-fanta.wav'
-    ];
-
-    function loadBeat(index) {
-      if (index >= 0 && index < beatSources.length) {
-        audioSource.setAttribute('src', beatSources[index]);
-        audioPlayer.load();
-        beatsList.querySelectorAll('li').forEach((li, i) => {
-          li.classList.toggle('active', i === index);
-        });
-      }
-    }
-
-    playButtonAudio.addEventListener('click', () => {
-      if (audioPlayer.paused) {
-        // Pause video if playing to avoid interference
-        if (videoPlayer && !videoPlayer.paused) {
-          videoPlayer.pause();
-        }
-        audioPlayer.play().catch(error => console.error('Audio play failed:', error));
-        playButtonAudio.textContent = 'Pause';
-      } else {
-        audioPlayer.pause();
-        playButtonAudio.textContent = 'Play';
-      }
-    });
-
-    prevButton.addEventListener('click', () => {
-      currentBeatIndex = (currentBeatIndex - 1 + beatSources.length) % beatSources.length;
-      loadBeat(currentBeatIndex);
-      if (!audioPlayer.paused) {
-        audioPlayer.play().catch(error => console.error('Audio play failed:', error));
-      }
-    });
-
-    nextButton.addEventListener('click', () => {
-      currentBeatIndex = (currentBeatIndex + 1) % beatSources.length;
-      loadBeat(currentBeatIndex);
-      if (!audioPlayer.paused) {
-        audioPlayer.play().catch(error => console.error('Audio play failed:', error));
-      }
-    });
-
-    beatsList.addEventListener('click', (e) => {
-      if (e.target.tagName === 'LI') {
-        currentBeatIndex = Array.from(beatsList.children).indexOf(e.target);
-        loadBeat(currentBeatIndex);
-        if (videoPlayer && !videoPlayer.paused) {
-          videoPlayer.pause();
-        }
-        audioPlayer.play().catch(error => console.error('Audio play failed:', error));
-      }
-    });
-
-    // Initial load
-    loadBeat(currentBeatIndex);
-  });
-
-// Function to start the video sequence
-function startSequence() {
-  const albumCover = document.querySelector('.album-cover');
-  const videoPlayer = document.getElementById('main-video');
-  const videoSource = document.getElementById('video-source');
-  const videoError = document.getElementById('video-error');
-  const playButton = document.getElementById('play-button');
-
-  if (albumCover && videoPlayer) {
-    albumCover.classList.add('fade-out');
-    setTimeout(async () => {
+    setTimeout(() => {
+      albumCover.classList.add('fade-out');
       setTimeout(() => {
         videoPlayer.classList.add('active');
-        if (isMobile()) {
-          const mobileVideoUrl = 'videos/Mobile-Vid-Promo.mp4';
-          const isAccessible = await testVideoUrl(mobileVideoUrl);
-          if (isAccessible) {
-            videoSource.setAttribute('src', mobileVideoUrl);
-            videoPlayer.load();
-            playButton.style.display = 'block'; // Show play button on mobile
-            playButton.addEventListener('click', () => {
-              videoPlayer.play().then(() => {
-                console.log("Mobile video playing");
-                playButton.style.display = 'none'; // Hide button after play
-              }).catch(error => {
-                console.error("Mobile video playback failed:", error);
-                videoError.textContent = `Mobile video failed: ${error.message}.`;
-                videoError.style.display = 'block';
-              });
-            });
-            // Attempt autoplay
-            videoPlayer.play().catch(error => {
-              console.error("Mobile video autoplay failed:", error);
-              // Play button is already shown, so no further action needed
-              playButton.style.display = 'block'; // Show play button on mobile
-              playButton.addEventListener('click', () => {
-                videoPlayer.play().then(() => {
-                  console.log("Mobile video playing");
-                  playButton.style.display = 'none'; // Hide button after play
-                }).catch(error => {
-                  console.error("Mobile video playback failed:", error);
-                  videoError.textContent = `Mobile video failed: ${error.message}.`;
-                  videoError.style.display = 'block';
-                });
-              } else {
-                videoError.textContent = `Mobile video not found at ${mobileVideoUrl}. Please check the file path.`;
-                videoError.style.display = 'block';
-              }
-            });
-            // Attempt autoplay
-            videoPlayer.play().catch(error => {
-              console.error("Mobile video autoplay failed:", error);
-              // Play button is already shown, so no further action needed
-            });
-          } else {
-            videoError.textContent = `Mobile video not found at ${mobileVideoUrl}. Please check the file path.`;
+        playButton.style.display = 'block';
+        playButton.addEventListener('click', () => {
+          videoPlayer.play().then(() => {
+            console.log("Video playing");
+            playButton.style.display = 'none';
+          }).catch(error => {
+            console.error("Video playback failed:", error);
+            videoError.textContent = `Video failed: ${error.message}.`;
             videoError.style.display = 'block';
-          }
-        } else {
-          const firstVideoUrl = 'videos/dust.mp4';
-          const secondVideoUrl = 'videos/roseburn.mp4';
-          const firstAccessible = await testVideoUrl(firstVideoUrl);
-          const secondAccessible = await testVideoUrl(secondVideoUrl);
-
-          if (!firstAccessible || !secondAccessible) {
-            videoError.textContent = `Desktop videos not found. Check paths: ${firstVideoUrl}, ${secondVideoUrl}.`;
-            videoError.style.display = 'block';
-            return;
-          }
-
-          videoSource.setAttribute('src', firstVideoUrl);
-          videoPlayer.load();
-          playButton.style.display = 'block'; // Show play button on desktop
-          playButton.addEventListener('click', () => {
-            videoPlayer.play().then(() => {
-              console.log("dust.mp4 playing");
-              playButton.style.display = 'none'; // Hide button after play
-              videoPlayer.addEventListener('ended', () => {
-                console.log("dust.mp4 ended, switching to roseburn.mp4");
-                videoSource.setAttribute('src', secondVideoUrl);
-                videoSource.setAttribute('src', 'videos/roseburn.mp4');
-                videoPlayer.load();
-                videoPlayer.play().then(() => {
-                  console.log("roseburn.mp4 playing");
-                  videoPlayer.addEventListener('ended', () => {
-                    console.log("roseburn.mp4 ended, fading back to album cover");
-                    videoPlayer.classList.remove('active');
-                    albumCover.classList.remove('fade-out');
-                    albumCover.classList.add('fade-in');
-                    setTimeout(() => {
-                      albumCover.classList.remove('fade-in');
-                      setTimeout(() => startSequence(), 4000);
-                    }, 2000);
-                  }, { once: true });
-                }).catch(error => {
-                  console.error("roseburn.mp4 playback failed:", error);
-                  videoError.textContent = `Second video failed: ${error.message}.`;
-                  videoError.style.display = 'block';
-                });
-              }, { once: true });
-            }).catch(error => {
-              console.error("dust.mp4 playback failed:", error);
-              videoError.textContent = `First video failed: ${error.message}.`;
-              videoError.style.display = 'block';
-            });
           });
-          // Attempt autoplay
-          videoPlayer.play().catch(error => {
-            console.error("Desktop video autoplay failed:", error);
-            // Play button is already shown, so no further action needed
-          });
-        }
-      }, 4000);
-    }, 1500); // Reduced delay to overlap fade-out and fade-in
+        });
+        // Attempt autoplay
+        videoPlayer.play().catch(error => {
+          console.error("Video autoplay failed:", error);
+          // Play button is already shown, so no further action needed
+        });
+      }, 2000);
+    }, 0);
   } else {
     videoError.style.display = 'block';
   }
-}
+
+  // Audio player setup
+  const audioPlayer = document.getElementById('beats-audio');
+  const audioSource = document.getElementById('beats-source');
+  const playButtonAudio = document.getElementById('play-beat');
+  const prevButton = document.getElementById('prev-beat');
+  const nextButton = document.getElementById('next-beat');
+  const beatsList = document.getElementById('beats-list');
+  let currentBeatIndex = 0;
+  const beatSources = [
+    'beats/WORKIN-ALL-DAY.wav',
+    'beats/hard-to-breathe.wav',
+    'beats/orange-fanta.wav'
+  ];
+
+  // Test accessibility of audio files
+  for (const beat of beatSources) {
+    const isAccessible = await testMediaUrl(beat);
+    if (!isAccessible) {
+      console.error(`Audio file ${beat} is not accessible. Please check the file path.`);
+    }
+  }
+
+  function loadBeat(index) {
+    if (index >= 0 && index < beatSources.length) {
+      console.log("Attempting to load beat:", beatSources[index]);
+      audioSource.setAttribute('src', beatSources[index]);
+      audioPlayer.load();
+      beatsList.querySelectorAll('li').forEach((li, i) => {
+        li.classList.toggle('active', i === index);
+      });
+      audioPlayer.addEventListener('loadeddata', () => {
+        console.log("Audio data loaded successfully for:", beatSources[index]);
+      }, { once: true });
+      audioPlayer.addEventListener('error', (e) => {
+        console.error("Error loading audio:", beatSources[index], e);
+      }, { once: true });
+    } else {
+      console.error("Invalid beat index:", index);
+    }
+  }
+
+  playButtonAudio.addEventListener('click', () => {
+    if (audioPlayer.paused) {
+      if (videoPlayer && !videoPlayer.paused) {
+        videoPlayer.pause();
+      }
+      audioPlayer.play().then(() => {
+        console.log("Audio playing:", beatSources[currentBeatIndex]);
+        playButtonAudio.textContent = 'Pause';
+      }).catch(error => {
+        console.error('Audio play failed:', error);
+      });
+    } else {
+      audioPlayer.pause();
+      playButtonAudio.textContent = 'Play';
+      console.log("Audio paused");
+    }
+  });
+
+  prevButton.addEventListener('click', () => {
+    currentBeatIndex = (currentBeatIndex - 1 + beatSources.length) % beatSources.length;
+    loadBeat(currentBeatIndex);
+    if (!audioPlayer.paused) {
+      audioPlayer.play().catch(error => console.error('Audio play failed:', error));
+    }
+  });
+
+  nextButton.addEventListener('click', () => {
+    currentBeatIndex = (currentBeatIndex + 1) % beatSources.length;
+    loadBeat(currentBeatIndex);
+    if (!audioPlayer.paused) {
+      audioPlayer.play().catch(error => console.error('Audio play failed:', error));
+    }
+  });
+
+  beatsList.addEventListener('click', (e) => {
+    if (e.target.tagName === 'LI') {
+      currentBeatIndex = Array.from(beatsList.children).indexOf(e.target);
+      loadBeat(currentBeatIndex);
+      if (videoPlayer && !videoPlayer.paused) {
+        videoPlayer.pause();
+      }
+      audioPlayer.play().catch(error => console.error('Audio play failed:', error));
+    }
+  });
+
+  // Initial load
+  loadBeat(currentBeatIndex);
+
+  // Form submission feedback
+  const bookingForm = document.getElementById('booking-form');
+  const bookingConfirmation = document.getElementById('booking-confirmation');
+
+  bookingForm.addEventListener('submit', (e) => {
+    console.log("Form submitted with data:", new FormData(bookingForm));
+    bookingConfirmation.style.display = 'block';
+    setTimeout(() => {
+      bookingForm.reset();
+      bookingConfirmation.style.display = 'none';
+    }, 3000);
+  });
+});
 
 // Countdown timer set to end on March 14, 2025, at 12 AM UTC
 const countDownDate = new Date(Date.UTC(2025, 2, 14, 0, 0, 0)).getTime();
