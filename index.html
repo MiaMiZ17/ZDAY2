@@ -9,15 +9,15 @@
 <body>
     <header class="sidebar">
         <ul class="sidebar-list">
-            <li class="sidebar-item"><a href="#" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Home" class="sidebar-icon"><span class="sidebar-text">Home</span></a></li>
-            <li class="sidebar-item"><a href="#" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Studio" class="sidebar-icon"><span class="sidebar-text">Studio</span></a></li>
-            <li class="sidebar-item"><a href="#" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Beats" class="sidebar-icon"><span class="sidebar-text">Beats</span></a></li>
-            <li class="sidebar-item"><a href="#" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Visuals" class="sidebar-icon"><span class="sidebar-text">Visuals</span></a></li>
-            <li class="sidebar-item"><a href="#" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Merch" class="sidebar-icon"><span class="sidebar-text">Merch</span></a></li>
+            <li class="sidebar-item"><a href="#home" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Home" class="sidebar-icon"><span class="sidebar-text">Home</span></a></li>
+            <li class="sidebar-item"><a href="#studio" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Studio" class="sidebar-icon"><span class="sidebar-text">Studio</span></a></li>
+            <li class="sidebar-item"><a href="#beats" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Beats" class="sidebar-icon"><span class="sidebar-text">Beats</span></a></li>
+            <li class="sidebar-item"><a href="#visuals" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Visuals" class="sidebar-icon"><span class="sidebar-text">Visuals</span></a></li>
+            <li class="sidebar-item"><a href="#merch" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Merch" class="sidebar-icon"><span class="sidebar-text">Merch</span></a></li>
         </ul>
     </header>
     <main class="container">
-        <section class="header">
+        <section class="header" id="home">
             <h1 class="title">ZDAY 2</h1>
         </section>
         <section class="control-panel">
@@ -38,7 +38,82 @@
                 Your browser does not support the video tag.
             </video>
             <button class="play-button">Play Video</button>
+            <div class="error-message">Failed to load video. Please try again.</div>
         </section>
+        <section class="studio-section" id="studio">
+            <h2 class="section-title">Studio Booking</h2>
+            <form action="[YOUR_FORMSPREE_URL]" method="POST" class="booking-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="date">Preferred Date:</label>
+                <input type="date" id="date" name="date" required>
+                <label for="details">Additional Details:</label>
+                <textarea id="details" name="details"></textarea>
+                <button type="submit">Book Now</button>
+            </form>
+            <p class="booking-note">Note: Booking confirmation will be sent via email.</p>
+        </section>
+        <section class="beats-section" id="beats">
+            <h2 class="section-title">Beats by MiaMiZ17</h2>
+            <div class="beats-player">
+                <audio class="beats-audio" id="beats-audio" controls>
+                    <source src="beat1.mp3" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            <div class="beats-controls">
+                <button class="beats-control" data-src="beat1.mp3">Beat 1</button>
+                <button class="beats-control" data-src="beat2.mp3">Beat 2</button>
+                <button class="beats-control" data-src="beat3.mp3">Beat 3</button>
+            </div>
+            <p class="beats-note">Contact us for custom beats or licensing.</p>
+        </section>
+        <section class="visuals-section" id="visuals">
+            <h2 class="section-title">Visuals</h2>
+            <div class="video-gallery">
+                <video class="visual-item" controls>
+                    <source src="video1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <video class="visual-item" controls>
+                    <source src="video2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <video class="visual-item" controls>
+                    <source src="video3.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <p class="visuals-note">More visuals coming soon!</p>
+        </section>
+        <section class="merch-section" id="merch">
+            <h2 class="section-title">Merch</h2>
+            <div class="merch-gallery">
+                <div class="merch-item">
+                    <img src="https://via.placeholder.com/200" alt="T-Shirt" class="merch-image">
+                    <h3 class="merch-title">ZDAY 2 T-Shirt</h3>
+                    <p class="merch-price">$25.00</p>
+                    <a href="[YOUR_PRINTFUL_URL]" class="merch-buy-btn">Buy Now</a>
+                </div>
+                <div class="merch-item">
+                    <img src="https://via.placeholder.com/200" alt="Hoodie" class="merch-image">
+                    <h3 class="merch-title">ZDAY 2 Hoodie</h3>
+                    <p class="merch-price">$45.00</p>
+                    <a href="[YOUR_PRINTFUL_URL]" class="merch-buy-btn">Buy Now</a>
+                </div>
+            </div>
+            <p class="merch-note">Limited stock available!</p>
+        </section>
+        <footer class="footer">
+            <p>© 2025 MiaMiZ17. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><img src="https://via.placeholder.com/24" alt="Instagram" class="social-icon"></a>
+                <a href="#"><img src="https://via.placeholder.com/24" alt="Twitter" class="social-icon"></a>
+                <a href="#"><img src="https://via.placeholder.com/24" alt="YouTube" class="social-icon"></a>
+            </div>
+        </footer>
     </main>
     <script src="script.js"></script>
 </body>
