@@ -13,7 +13,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Sidebar */
+/* Sidebar (Header Bar on Mobile) */
 .sidebar {
   position: fixed;
   top: 0;
@@ -22,15 +22,13 @@ body {
   height: 100%;
   background-color: #222;
   padding-top: 20px;
-  transition: transform 0.3s ease;
-}
-
-.sidebar.active {
-  transform: translateX(0);
+  z-index: 1000;
 }
 
 .sidebar-list {
   list-style: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-item {
@@ -55,39 +53,42 @@ body {
 
 .sidebar-text {
   font-size: 12px;
-  display: none; /* Hide text on mobile by default */
-}
-
-.menu-toggle {
-  display: none;
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  font-size: 24px;
-  background: #D23333;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  z-index: 1000;
 }
 
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-
   .sidebar {
-    transform: translateX(-100%);
-    width: 200px;
+    width: 100%;
+    height: auto;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    background-color: #222;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   }
 
-  .sidebar.active {
-    transform: translateX(0);
+  .sidebar-list {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .sidebar-item {
+    margin-bottom: 0;
+  }
+
+  .sidebar-link {
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  .sidebar-icon {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 3px;
   }
 
   .sidebar-text {
-    display: block; /* Show text when sidebar is open on mobile */
+    font-size: 10px;
   }
 }
 
@@ -95,17 +96,13 @@ body {
 .container {
   margin-left: 80px;
   padding: 20px;
-  transition: margin-left 0.3s ease;
 }
 
 @media (max-width: 768px) {
   .container {
     margin-left: 0;
-    padding: 10px;
-  }
-
-  .container.with-sidebar-active {
-    margin-left: 200px;
+    margin-top: 60px; /* Space for header bar */
+    padding: 15px;
   }
 }
 
@@ -123,12 +120,14 @@ body {
 @media (max-width: 768px) {
   .title {
     font-size: 36px;
+    margin-top: 20px;
   }
 }
 
 /* Control panel */
 .control-panel {
   text-align: center;
+  padding-bottom: 60px; /* Space for sticky pre-save button */
 }
 
 .countdown {
@@ -138,22 +137,41 @@ body {
 
 .action-buttons {
   margin-bottom: 20px;
+  position: relative;
 }
 
 .pre-save {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 12px 24px;
   background-color: #D23333;
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
   font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+}
+
+.pre-save:hover {
+  background-color: #b52828;
 }
 
 @media (max-width: 768px) {
   .pre-save {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 300px;
     font-size: 14px;
-    padding: 8px 16px;
+    padding: 10px 20px;
+    z-index: 1000;
+  }
+
+  .countdown {
+    font-size: 20px;
   }
 }
 
@@ -174,6 +192,11 @@ body {
   text-decoration: none;
   border-radius: 5px;
   font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.platform-btn:hover {
+  background-color: #444;
 }
 
 .platform-icon {
@@ -186,6 +209,11 @@ body {
   .platform-btn {
     padding: 8px 12px;
     font-size: 12px;
+  }
+
+  .platform-icon {
+    width: 18px;
+    height: 18px;
   }
 }
 
@@ -241,6 +269,7 @@ body {
 
 .play-button {
   font-size: 16px;
+  padding: 10px 20px;
 }
 
 @media (max-width: 768px) {
@@ -530,25 +559,5 @@ body {
   .social-icon {
     width: 20px;
     height: 20px;
-  }
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 60px;
-  }
-
-  .container {
-    margin-left: 60px;
-  }
-
-  .section-title {
-    font-size: 24px;
-  }
-
-  .visual-item {
-    max-width: 250px;
-    height: 150px;
   }
 }
