@@ -185,8 +185,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Countdown timer set to end on March 14, 2025, at 12 AM UTC
-const countDownDate = new Date(Date.UTC(2025, 2, 14, 0, 0, 0)).getTime();
-const x = setInterval(function() {
+const countDownDate = new Date(Date.UTC(2025, 2, 14, 19, 14, 0)).getTime();
+​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​const x = setInterval(function() {
   const now = new Date().toISOString();
   const nowUTC = new Date(now).getTime();
   const distance = countDownDate - nowUTC;
