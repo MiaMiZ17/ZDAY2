@@ -122,6 +122,112 @@ document.addEventListener('DOMContentLoaded', async () => {
   } else {
     videoError.style.display = 'block';
   }
+
+  // Audio player setup
+  const audioPlayer = document.getElementById('beats-audio');
+  const audioSource = document.getElementById('beats-source');
+  const playButtonAudio = document.getElementById('play-beat');
+  const prevButton = document.getElementById('prev-beat');
+  const nextButton = document.getElementById('next-beat');
+  const beatsList = document.getElementById('beats-list');
+  let currentBeatIndex = 0;
+  const beatSources = [
+    'beats/WORKIN-ALL-DAY.wav',
+    'beats/hard-to-breathe.wav',
+    'beats/orange-fanta.wav'
+  ];
+
+  function loadBeat(index) {
+    if (index >= 0 && index < beatSources.length) {
+      audioSource.setAttribute('src', beatSources[index]);
+      audioPlayer.load();
+      beatsList.querySelectorAll('li').forEach((li, i) => {
+        li.classList.toggle('active', i === index);
+      });
+    }
+  }
+
+  playButtonAudio.addEventListener('click', () => {
+    if (audioPlayer.paused) {
+      // Pause video if playing to avoid interference
+      if (videoPlayer && !videoPlayer.paused) {
+        videoPlayer.pause();
+      }
+      audioPlayer.play().catch(error => console.error('Audio play failed:', error));
+      playButtonAudio.textContent = 'Pause';
+    } else {
+      audioPlayer.pause();
+      playButtonAudio.textContent = 'Play';
+    }
+  });
+
+  prevButton.addEventListener('click', () => {
+    currentBeatIndex = (currentBeatIndex - 1 + beatSources.length) % beatSources.length;
+    loadBeat(currentBeatIndex);
+    if (!audioPlayer.paused) {
+      audioPlayer.play().catch(error => console.error('Audio play failed:', error));
+    }
+  });
+
+  nextButton.addEventListener('click', () => {
+    currentBeatIndex = (currentBeatIndex + 1) % beatSources.length;
+    loadBeat(currentBeatIndex);
+    if (!audioPlayer.paused) {
+      audioPlayer.play().catch(error => console.error('Audio play failed:', error));
+    }
+  });
+
+  beatsList.addEventListener('click', (e) => {
+    if (e.target.tagName === 'LI') {
+      currentBeatIndex = Array.from(beatsList.children).indexOf(e.target);
+      loadBeat(currentBeatIndex);
+      if (videoPlayer && !videoPlayer.paused) {
+        videoPlayer.pause();
+      }
+      audioPlayer.play().catch(error => console.error('Audio play failed:', error));
+    }
+  });
+
+  // Initial load
+  loadBeat(currentBeatIndex);
+
+  // Dynamically load photoshoot galleries
+  const photoshoot1Gallery = document.getElementById('photoshoot1-gallery');
+  const photoshoot2Gallery = document.getElementById('photoshoot2-gallery');
+
+  // Example image lists (replace with actual file names from your folders)
+  const photoshoot1Images = [
+    'Photoshoot1/IMG-20240309-WA0001.jpg',
+    'Photoshoot1/IMG-20240309-WA0002.jpg'
+    // Add more as needed
+  ];
+  const photoshoot2Images = [
+    'Photoshoot2/IMG-20240309-WA0003.jpg',
+    'Photoshoot2/IMG-20240309-WA0004.jpg'
+    // Add more as needed
+  ];
+
+  photoshoot1Images.forEach(src => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Photoshoot 1 Image';
+    img.classList.add('visual-item');
+    img.addEventListener('click', () => {
+      img.classList.toggle('enlarged');
+    });
+    photoshoot1Gallery.appendChild(img);
+  });
+
+  photoshoot2Images.forEach(src => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Photoshoot 2 Image';
+    img.classList.add('visual-item');
+    img.addEventListener('click', () => {
+      img.classList.toggle('enlarged');
+    });
+    photoshoot2Gallery.appendChild(img);
+  });
 });
 
 // Function to start the video sequence
