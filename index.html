@@ -89,20 +89,20 @@
         </a>
       </div>
 
-     <article class="media-container">
-  <figure class="live-stream">
-    <div id="media-content">
-      <img src="ZDAY 2.png" alt="ZDAY 2 Album Cover" class="album-cover">
-      <video id="main-video" class="video-player" muted playsinline controls>
-        <source id="video-source" src="" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <button id="play-button" class="play-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px 20px; background: #D23333; color: white; border: none; border-radius: 5px; cursor: pointer; display: none;">Play Video</button>
-      <p id="video-error" class="error-message" aria-live="assertive">Video failed to load. Check file paths, format, or browser compatibility.</p>
-    </div>
-    <figcaption class="visually-hidden">Album promotional content</figcaption>
-  </figure>
-</article>
+      <article class="media-container">
+        <figure class="live-stream">
+          <div id="media-content">
+            <img src="ZDAY 2.png" alt="ZDAY 2 Album Cover" class="album-cover">
+            <video id="main-video" class="video-player" muted playsinline controls preload="auto">
+              <source id="video-source" src="" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <button id="play-button" class="play-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px 20px; background: #D23333; color: white; border: none; border-radius: 5px; cursor: pointer; display: none;">Play Video</button>
+            <p id="video-error" class="error-message" aria-live="assertive">Video failed to load. Check file paths, format, or browser compatibility.</p>
+          </div>
+          <figcaption class="visually-hidden">Album promotional content</figcaption>
+        </figure>
+      </article>
 
       <!-- Additional Content -->
       <div class="additional-content content-section">
