@@ -117,7 +117,10 @@
     <section id="studio" class="studio-section">
       <h2 class="section-title">Studio Services</h2>
       <p>Book recording time, mix, or master services with Miami Z17.</p>
-      <form id="booking-form" class="booking-form" action="https://formspree.io/f/your-endpoint" method="POST">
+      <form id="booking-form" class="booking-form" action="https://formspree.io/f/xvoegqdg" method="POST">
+        <input type="hidden" name="_subject" value="New Studio Booking from arabmafia.xyz">
+        <input type="hidden" name="_next" value="https://arabmafia.xyz/thank-you.html">
+        <input type="hidden" name="_to" value="arabmafiaentamg@gmail.com">
         <label for="service-type">Service Type:</label>
         <select id="service-type" name="service-type" required>
           <option value="recording">Recording Time</option>
@@ -142,15 +145,20 @@
       <h2 class="section-title">Beats by Miami Z17</h2>
       <p>Stream my beats from local files:</p>
       <div class="beats-player">
-        <audio controls id="beats-audio" class="beats-audio" oncontextmenu="return false;" style="display: none;">
-          <source src="" type="audio/wav">
+        <audio controls id="beats-audio" class="beats-audio" oncontextmenu="return false;">
+          <source id="beats-source" src="" type="audio/wav">
           Your browser does not support the audio element.
         </audio>
-        <div class="beats-controls" style="display: none;">
+        <div class="beats-controls">
           <button id="prev-beat" class="beats-control">Previous</button>
+          <button id="play-beat" class="beats-control">Play</button>
           <button id="next-beat" class="beats-control">Next</button>
         </div>
-        <ul class="beats-list" id="beats-list" style="display: none;"></ul>
+        <ul class="beats-list" id="beats-list">
+          <li data-src="beats/WORKIN-ALL-DAY.wav">Workin All Day</li>
+          <li data-src="beats/hard-to-breathe.wav">Hard to Breathe</li>
+          <li data-src="beats/orange-fanta.wav">Orange Fanta</li>
+        </ul>
       </div>
       <p class="beats-note">Contact me for custom beats or licensing details. Download available after payment system setup.</p>
     </section>
@@ -160,8 +168,14 @@
       <h2 class="section-title">Visual Works by Miami Z17</h2>
       <p>Check out my photo and video shoot portfolio:</p>
       <div class="visuals-gallery">
-        <img src="photo1.jpg" alt="Photo Shoot 1" class="visual-item">
-        <img src="photo2.jpg" alt="Photo Shoot 2" class="visual-item">
+        <h3>Photoshoot 1</h3>
+        <div class="photo-gallery" id="photoshoot1-gallery">
+          <!-- Images will be dynamically loaded via JS -->
+        </div>
+        <h3>Photoshoot 2</h3>
+        <div class="photo-gallery" id="photoshoot2-gallery">
+          <!-- Images will be dynamically loaded via JS -->
+        </div>
         <iframe src="https://www.youtube.com/embed/gFHHRtLqI0U" title="YouTube Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
         <iframe src="https://www.youtube.com/embed/wM6tf5eB6Tg" title="YouTube Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
         <iframe src="https://www.youtube.com/embed/jml5G2Tsn1E" title="YouTube Video 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
@@ -178,7 +192,7 @@
           <img src="rose-tshirt-mockup.jpg" alt="Rose Vibes T-Shirt" class="merch-image">
           <h3 class="merch-title">Rose Vibes T-Shirt</h3>
           <p class="merch-price">$25.00</p>
-          <a href="YOUR_PRINTFUL_PRODUCT_URL" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
+          <a href="https://www.printful.com/a/miamiz17-rose-vibes-tshirt" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
         </div>
       </div>
       <p class="merch-note">More merch coming soon! Contact for custom orders.</p>
