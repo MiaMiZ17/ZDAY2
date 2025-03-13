@@ -1,310 +1,554 @@
-// Debug: Confirm script is loading
-console.log("script.js loaded");
-
-// Function to detect if the user is on a mobile device
-function isMobile() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-// Function to test if a video URL is accessible
-async function testVideoUrl(url) {
-  try {
-    const response = await fetch(url, { method: 'HEAD' });
-    return response.ok;
-  } catch (error) {
-    console.error(`Failed to access video at ${url}:`, error);
-    return false;
-  }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1a1a1a;
+  color: #fff;
+  line-height: 1.6;
+  overflow-x: hidden;
 }
 
-// Detect mobile and adjust layout
-document.addEventListener('DOMContentLoaded', async () => {
-  if (window.innerWidth <= 768) {
-    document.body.setAttribute('data-mobile', 'true');
-  } else {
-    document.body.setAttribute('data-mobile', 'false');
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 100%;
+  background-color: #222;
+  padding-top: 20px;
+  transition: transform 0.3s ease;
+}
+
+.sidebar.active {
+  transform: translateX(0);
+}
+
+.sidebar-list {
+  list-style: none;
+}
+
+.sidebar-item {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.sidebar-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  padding: 10px 0;
+}
+
+.sidebar-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 5px;
+}
+
+.sidebar-text {
+  font-size: 12px;
+  display: none; /* Hide text on mobile by default */
+}
+
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-size: 24px;
+  background: #D23333;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
   }
 
-  const albumCover = document.querySelector('.album-cover');
-  const videoPlayer = document.getElementById('main-video');
-  const videoSource = document.getElementById('video-source');
-  const videoError = document.getElementById('video-error');
-  const playButton = document.getElementById('play-button');
-
-  // Video sequence logic
-  if (albumCover && videoPlayer) {
-    setTimeout(async () => {
-      albumCover.classList.add('fade-out');
-      setTimeout(async () => {
-        videoPlayer.classList.add('active');
-        if (isMobile()) {
-          const mobileVideoUrl = 'videos/Mobile-Vid-Promo.mp4';
-          const isAccessible = await testVideoUrl(mobileVideoUrl);
-          if (isAccessible) {
-            videoSource.setAttribute('src', mobileVideoUrl);
-            videoPlayer.load();
-            playButton.style.display = 'block'; // Show play button on mobile
-            playButton.addEventListener('click', () => {
-              videoPlayer.play().then(() => {
-                console.log("Mobile video playing");
-                playButton.style.display = 'none'; // Hide button after play
-              }).catch(error => {
-                console.error("Mobile video playback failed:", error);
-                videoError.textContent = `Mobile video failed: ${error.message}.`;
-                videoError.style.display = 'block';
-              });
-            });
-            // Attempt autoplay
-            videoPlayer.play().catch(error => {
-              console.error("Mobile video autoplay failed:", error);
-              // Play button is already shown, so no further action needed
-            });
-          } else {
-            videoError.textContent = `Mobile video not found at ${mobileVideoUrl}. Please check the file path.`;
-            videoError.style.display = 'block';
-          }
-        } else {
-          // Load desktop video sequence
-          const firstVideoUrl = 'videos/dust.mp4';
-          const secondVideoUrl = 'videos/roseburn.mp4';
-          const firstAccessible = await testVideoUrl(firstVideoUrl);
-          const secondAccessible = await testVideoUrl(secondVideoUrl);
-
-          if (!firstAccessible || !secondAccessible) {
-            videoError.textContent = `Desktop videos not found. Check paths: ${firstVideoUrl}, ${secondVideoUrl}.`;
-            videoError.style.display = 'block';
-            return;
-          }
-
-          videoSource.setAttribute('src', firstVideoUrl);
-          videoPlayer.load();
-          playButton.style.display = 'block'; // Show play button on desktop too
-          playButton.addEventListener('click', () => {
-            videoPlayer.play().then(() => {
-              console.log("dust.mp4 playing");
-              playButton.style.display = 'none'; // Hide button after play
-              videoPlayer.addEventListener('ended', () => {
-                console.log("dust.mp4 ended, switching to roseburn.mp4");
-                videoSource.setAttribute('src', secondVideoUrl);
-                videoPlayer.load();
-                videoPlayer.play().then(() => {
-                  console.log("roseburn.mp4 playing");
-                  videoPlayer.addEventListener('ended', () => {
-                    console.log("roseburn.mp4 ended, fading back to album cover");
-                    videoPlayer.classList.remove('active');
-                    albumCover.classList.remove('fade-out');
-                    albumCover.classList.add('fade-in');
-                    setTimeout(() => {
-                      albumCover.classList.remove('fade-in');
-                      setTimeout(() => startSequence(), 4000);
-                    }, 2000);
-                  }, { once: true });
-                }).catch(error => {
-                  console.error("roseburn.mp4 playback failed:", error);
-                  videoError.textContent = `Second video failed: ${error.message}.`;
-                  videoError.style.display = 'block';
-                });
-              }, { once: true });
-            }).catch(error => {
-              console.error("dust.mp4 playback failed:", error);
-              videoError.textContent = `First video failed: ${error.message}.`;
-              videoError.style.display = 'block';
-            });
-          });
-          // Attempt autoplay
-          videoPlayer.play().catch(error => {
-            console.error("Desktop video autoplay failed:", error);
-            // Play button is already shown, so no further action needed
-          });
-        }
-      }, 4000);
-    }, 0);
-  } else {
-    videoError.style.display = 'block';
+  .sidebar {
+    transform: translateX(-100%);
+    width: 200px;
   }
 
-  // Audio player setup
-  const audioPlayer = document.getElementById('beats-audio');
-  const audioSource = document.getElementById('beats-source');
-  const playButtonAudio = document.getElementById('play-beat');
-  const prevButton = document.getElementById('prev-beat');
-  const nextButton = document.getElementById('next-beat');
-  const beatsList = document.getElementById('beats-list');
-  let currentBeatIndex = 0;
-  const beatSources = [
-    'beats/WORKIN-ALL-DAY.wav',
-    'beats/hard-to-breathe.wav',
-    'beats/orange-fanta.wav'
-  ];
-
-  function loadBeat(index) {
-    if (index >= 0 && index < beatSources.length) {
-      audioSource.setAttribute('src', beatSources[index]);
-      audioPlayer.load();
-      beatsList.querySelectorAll('li').forEach((li, i) => {
-        li.classList.toggle('active', i === index);
-      });
-    }
+  .sidebar.active {
+    transform: translateX(0);
   }
 
-  playButtonAudio.addEventListener('click', () => {
-    if (audioPlayer.paused) {
-      // Pause video if playing to avoid interference
-      if (videoPlayer && !videoPlayer.paused) {
-        videoPlayer.pause();
-      }
-      audioPlayer.play().catch(error => console.error('Audio play failed:', error));
-      playButtonAudio.textContent = 'Pause';
-    } else {
-      audioPlayer.pause();
-      playButtonAudio.textContent = 'Play';
-    }
-  });
-
-  prevButton.addEventListener('click', () => {
-    currentBeatIndex = (currentBeatIndex - 1 + beatSources.length) % beatSources.length;
-    loadBeat(currentBeatIndex);
-    if (!audioPlayer.paused) {
-      audioPlayer.play().catch(error => console.error('Audio play failed:', error));
-    }
-  });
-
-  nextButton.addEventListener('click', () => {
-    currentBeatIndex = (currentBeatIndex + 1) % beatSources.length;
-    loadBeat(currentBeatIndex);
-    if (!audioPlayer.paused) {
-      audioPlayer.play().catch(error => console.error('Audio play failed:', error));
-    }
-  });
-
-  beatsList.addEventListener('click', (e) => {
-    if (e.target.tagName === 'LI') {
-      currentBeatIndex = Array.from(beatsList.children).indexOf(e.target);
-      loadBeat(currentBeatIndex);
-      if (videoPlayer && !videoPlayer.paused) {
-        videoPlayer.pause();
-      }
-      audioPlayer.play().catch(error => console.error('Audio play failed:', error));
-    }
-  });
-
-  // Initial load
-  loadBeat(currentBeatIndex);
-});
-
-// Function to start the video sequence
-function startSequence() {
-  const albumCover = document.querySelector('.album-cover');
-  const videoPlayer = document.getElementById('main-video');
-  const videoSource = document.getElementById('video-source');
-  const videoError = document.getElementById('video-error');
-  const playButton = document.getElementById('play-button');
-
-  if (albumCover && videoPlayer) {
-    albumCover.classList.add('fade-out');
-    setTimeout(async () => {
-      videoPlayer.classList.add('active');
-      if (isMobile()) {
-        const mobileVideoUrl = 'videos/Mobile-Vid-Promo.mp4';
-        const isAccessible = await testVideoUrl(mobileVideoUrl);
-        if (isAccessible) {
-          videoSource.setAttribute('src', mobileVideoUrl);
-          videoPlayer.load();
-          playButton.style.display = 'block'; // Show play button on mobile
-          playButton.addEventListener('click', () => {
-            videoPlayer.play().then(() => {
-              console.log("Mobile video playing");
-              playButton.style.display = 'none'; // Hide button after play
-            }).catch(error => {
-              console.error("Mobile video playback failed:", error);
-              videoError.textContent = `Mobile video failed: ${error.message}.`;
-              videoError.style.display = 'block';
-            });
-          });
-          // Attempt autoplay
-          videoPlayer.play().catch(error => {
-            console.error("Mobile video autoplay failed:", error);
-            // Play button is already shown, so no further action needed
-          });
-        } else {
-          videoError.textContent = `Mobile video not found at ${mobileVideoUrl}. Please check the file path.`;
-          videoError.style.display = 'block';
-        }
-      } else {
-        const firstVideoUrl = 'videos/dust.mp4';
-        const secondVideoUrl = 'videos/roseburn.mp4';
-        const firstAccessible = await testVideoUrl(firstVideoUrl);
-        const secondAccessible = await testVideoUrl(secondVideoUrl);
-
-        if (!firstAccessible || !secondAccessible) {
-          videoError.textContent = `Desktop videos not found. Check paths: ${firstVideoUrl}, ${secondVideoUrl}.`;
-          videoError.style.display = 'block';
-          return;
-        }
-
-        videoSource.setAttribute('src', firstVideoUrl);
-        videoPlayer.load();
-        playButton.style.display = 'block'; // Show play button on desktop
-        playButton.addEventListener('click', () => {
-          videoPlayer.play().then(() => {
-            console.log("dust.mp4 playing");
-            playButton.style.display = 'none'; // Hide button after play
-            videoPlayer.addEventListener('ended', () => {
-              console.log("dust.mp4 ended, switching to roseburn.mp4");
-              videoSource.setAttribute('src', secondVideoUrl);
-              videoPlayer.load();
-              videoPlayer.play().then(() => {
-                console.log("roseburn.mp4 playing");
-                videoPlayer.addEventListener('ended', () => {
-                  console.log("roseburn.mp4 ended, fading back to album cover");
-                  videoPlayer.classList.remove('active');
-                  albumCover.classList.remove('fade-out');
-                  albumCover.classList.add('fade-in');
-                  setTimeout(() => {
-                    albumCover.classList.remove('fade-in');
-                    setTimeout(() => startSequence(), 4000);
-                  }, 2000);
-                }, { once: true });
-              }).catch(error => {
-                console.error("roseburn.mp4 playback failed:", error);
-                videoError.textContent = `Second video failed: ${error.message}.`;
-                videoError.style.display = 'block';
-              });
-            }, { once: true });
-          }).catch(error => {
-            console.error("dust.mp4 playback failed:", error);
-            videoError.textContent = `First video failed: ${error.message}.`;
-            videoError.style.display = 'block';
-          });
-        });
-        // Attempt autoplay
-        videoPlayer.play().catch(error => {
-          console.error("Desktop video autoplay failed:", error);
-          // Play button is already shown, so no further action needed
-        });
-      }
-    }, 4000);
-  } else {
-    videoError.style.display = 'block';
+  .sidebar-text {
+    display: block; /* Show text when sidebar is open on mobile */
   }
 }
 
-// Countdown timer set to end on March 14, 2025, at 12 AM UTC
-const countDownDate = new Date(Date.UTC(2025, 2, 14, 0, 0, 0)).getTime();
-const x = setInterval(function() {
-  const now = new Date().toISOString();
-  const nowUTC = new Date(now).getTime();
-  const distance = countDownDate - nowUTC;
+/* Main container */
+.container {
+  margin-left: 80px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
 
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  if (distance > 0) {
-    document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  } else {
-    document.getElementById("countdown").innerHTML = "ZDAY 2 has arrived!";
-    clearInterval(x);
+@media (max-width: 768px) {
+  .container {
+    margin-left: 0;
+    padding: 10px;
   }
-}, 1000);
+
+  .container.with-sidebar-active {
+    margin-left: 200px;
+  }
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 48px;
+  color: #D23333;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 36px;
+  }
+}
+
+/* Control panel */
+.control-panel {
+  text-align: center;
+}
+
+.countdown {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.action-buttons {
+  margin-bottom: 20px;
+}
+
+.pre-save {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #D23333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .pre-save {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+.platform-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.platform-btn {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.platform-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+  .platform-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Media container */
+.media-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.album-cover {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.video-player {
+  width: 100%;
+  height: auto;
+  display: none;
+}
+
+.video-player.active {
+  display: block;
+}
+
+.fade-out {
+  animation: fadeOut 2s forwards;
+}
+
+.fade-in {
+  animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; display: none; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.error-message {
+  display: none;
+  color: #D23333;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.play-button {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .play-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* Studio Section */
+.studio-section {
+  margin-top: 40px;
+}
+
+.section-title {
+  font-size: 32px;
+  color: #D23333;
+  margin-bottom: 20px;
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.booking-form label {
+  font-size: 16px;
+}
+
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  width: 100%;
+}
+
+.booking-form textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+.booking-form button {
+  padding: 10px;
+  background-color: #D23333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+
+.booking-form button:hover {
+  background-color: #b52828;
+}
+
+.booking-note {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #aaa;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 24px;
+  }
+
+  .booking-form label {
+    font-size: 14px;
+  }
+
+  .booking-form input,
+  .booking-form select,
+  .booking-form textarea,
+  .booking-form button {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+
+/* Beats Section */
+.beats-section {
+  margin-top: 40px;
+}
+
+.beats-player {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.beats-audio {
+  width: 100%;
+  max-width: 500px;
+}
+
+.beats-controls {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.beats-control {
+  padding: 10px 20px;
+  background-color: #D23333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.beats-control:hover {
+  background-color: #b52828;
+}
+
+.beats-list {
+  list-style: none;
+  margin: 10px 0;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.beats-list li {
+  padding: 10px;
+  background-color: #333;
+  margin-bottom: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.beats-list li.active {
+  background-color: #D23333;
+}
+
+.beats-note {
+  font-size: 14px;
+  color: #aaa;
+}
+
+@media (max-width: 768px) {
+  .beats-control {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+
+  .beats-list li {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+/* Visuals Section */
+.visuals-section {
+  margin-top: 40px;
+}
+
+.video-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.visual-item {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 5px;
+}
+
+.visuals-note {
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .video-gallery {
+    grid-template-columns: 1fr; /* Stack videos vertically on mobile */
+  }
+}
+
+/* Merch Section */
+.merch-section {
+  margin-top: 40px;
+}
+
+.merch-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.merch-item {
+  text-align: center;
+}
+
+.merch-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.merch-title {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.merch-price {
+  font-size: 16px;
+  color: #D23333;
+}
+
+.merch-buy-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #D23333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.merch-buy-btn:hover {
+  background-color: #b52828;
+}
+
+.merch-note {
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .merch-image {
+    height: 150px;
+  }
+
+  .merch-title {
+    font-size: 16px;
+  }
+
+  .merch-price {
+    font-size: 14px;
+  }
+
+  .merch-buy-btn {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+}
+
+/* Footer */
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  padding: 20px;
+  background-color: #222;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.social-icon {
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 768px) {
+  .social-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .container {
+    margin-left: 60px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .visual-item {
+    max-width: 250px;
+    height: 150px;
+  }
+}
