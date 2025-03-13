@@ -195,16 +195,30 @@ document.addEventListener('DOMContentLoaded', async () => {
   const photoshoot1Gallery = document.getElementById('photoshoot1-gallery');
   const photoshoot2Gallery = document.getElementById('photoshoot2-gallery');
 
-  // Example image lists (replace with actual file names from your folders)
+  // Photoshoot 1 images (1.jpg to 6.jpg)
   const photoshoot1Images = [
-    'Photoshoot1/IMG-20240309-WA0001.jpg',
-    'Photoshoot1/IMG-20240309-WA0002.jpg'
-    // Add more as needed
+    'Photoshoot1/1.jpg',
+    'Photoshoot1/2.jpg',
+    'Photoshoot1/3.jpg',
+    'Photoshoot1/4.jpg',
+    'Photoshoot1/5.jpg',
+    'Photoshoot1/6.jpg'
   ];
+
+  // Photoshoot 2 images (1.jpg to 12.jpg)
   const photoshoot2Images = [
-    'Photoshoot2/IMG-20240309-WA0003.jpg',
-    'Photoshoot2/IMG-20240309-WA0004.jpg'
-    // Add more as needed
+    'Photoshoot2/1.jpg',
+    'Photoshoot2/2.jpg',
+    'Photoshoot2/3.jpg',
+    'Photoshoot2/4.jpg',
+    'Photoshoot2/5.jpg',
+    'Photoshoot2/6.jpg',
+    'Photoshoot2/7.jpg',
+    'Photoshoot2/8.jpg',
+    'Photoshoot2/9.jpg',
+    'Photoshoot2/10.jpg',
+    'Photoshoot2/11.jpg',
+    'Photoshoot2/12.jpg'
   ];
 
   photoshoot1Images.forEach(src => {
