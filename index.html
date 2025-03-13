@@ -1,120 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZDAY 2</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Official release page for ZDAY 2 by Miami Z17 - Available March 14, 2025">
+  <title>ZDAY 2 - Miami Z17</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preload" href="videos/Mobile-Vid-Promo.mp4" as="video" type="video/mp4">
+  <link rel="preload" href="videos/dust.mp4" as="video" type="video/mp4">
+  <link rel="preload" href="videos/roseburn.mp4" as="video" type="video/mp4">
 </head>
-<body>
-    <header class="sidebar">
-        <ul class="sidebar-list">
-            <li class="sidebar-item"><a href="#home" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Home" class="sidebar-icon"><span class="sidebar-text">Home</span></a></li>
-            <li class="sidebar-item"><a href="#studio" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Studio" class="sidebar-icon"><span class="sidebar-text">Studio</span></a></li>
-            <li class="sidebar-item"><a href="#beats" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Beats" class="sidebar-icon"><span class="sidebar-text">Beats</span></a></li>
-            <li class="sidebar-item"><a href="#visuals" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Visuals" class="sidebar-icon"><span class="sidebar-text">Visuals</span></a></li>
-            <li class="sidebar-item"><a href="#merch" class="sidebar-link"><img src="https://via.placeholder.com/24" alt="Merch" class="sidebar-icon"><span class="sidebar-text">Merch</span></a></li>
-        </ul>
+<body class="with-sidebar" data-mobile="false">
+  <!-- Navigation Sidebar -->
+  <!-- Navigation Sidebar (Header Bar on Mobile) -->
+  <nav class="sidebar" aria-label="Main navigation">
+    <ul class="sidebar-list">
+      <li class="sidebar-item">
+        <a href="#" class="sidebar-link" id="album-tab" role="button" aria-label="Album section">
+          <img src="album-icon.png" alt="" class="sidebar-icon" aria-hidden="true">
+          <span class="sidebar-text">Album</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#studio" class="sidebar-link" id="studio-tab" role="button" aria-label="Studio section">
+          <img src="microphone-icon.png" alt="" class="sidebar-icon" aria-hidden="true">
+          <span class="sidebar-text">Studio</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#beats" class="sidebar-link" id="beats-tab" role="button" aria-label="Beats section">
+          <img src="piano-icon.png" alt="" class="sidebar-icon" aria-hidden="true">
+          <span class="sidebar-text">Beats</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#visuals" class="sidebar-link" id="visuals-tab" role="button" aria-label="Visuals section">
+          <img src="camera-icon.png" alt="" class="sidebar-icon" aria-hidden="true">
+          <span class="sidebar-text">Visuals</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a href="#merch" class="sidebar-link" id="merch-tab" role="button" aria-label="Merch section">
+          <img src="tshirt-icon.png" alt="" class="sidebar-icon" aria-hidden="true">
+          <span class="sidebar-text">Merch</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <header class="header">
+      <h1 class="title">ZDAY 2</h1>
     </header>
-    <main class="container">
-        <section class="header" id="home">
-            <h1 class="title">ZDAY 2</h1>
-        </section>
-        <section class="control-panel">
-            <div class="countdown" id="countdown">Loading countdown...</div>
-            <div class="action-buttons">
-                <a href="#" class="pre-save">Pre-Save ZDAY 2</a>
-            </div>
-            <div class="platform-buttons">
-                <a href="#" class="platform-btn"><img src="https://via.placeholder.com/20" alt="Spotify" class="platform-icon">Spotify</a>
-                <a href="#" class="platform-btn"><img src="https://via.placeholder.com/20" alt="Apple Music" class="platform-icon">Apple Music</a>
-                <a href="#" class="platform-btn"><img src="https://via.placeholder.com/20" alt="YouTube" class="platform-icon">YouTube</a>
-            </div>
-        </section>
-        <section class="media-container">
-            <img src="zday2-cover.jpg" alt="ZDAY 2 Album Cover" class="album-cover">
-            <video class="video-player" muted preload="auto">
-                <source src="Mobile-Vid-Promo.mp4" type="video/mp4">
-                Your browser does not support the video tag.
+
+    <section class="control-panel" aria-labelledby="countdown-label">
+      <h2 id="countdown-label" class="visually-hidden">Release countdown</h2>
+      <div id="countdown" class="countdown" role="timer" aria-live="polite"></div>
+
+      <div class="action-buttons">
+        <a href="https://distrokid.com/hyperfollow/miamiz17/zday-2-2"
+            class="pre-save"
+            target="_blank"
+           rel="noopener noreferrer">
+          PRE-SAVE ON SPOTIFY
+        </a>
+      </div>
+
+      <div class="platform-buttons">
+        <a href="https://open.spotify.com/artist/6BsZlxrxvPEV6t7VX4XJQH"
+            class="platform-btn spotify"
+            target="_blank"
+           rel="noopener noreferrer">
+          <img src="spotify-icon.png" alt="Spotify" class="platform-icon">
+          Spotify
+        </a>
+        <a href="https://music.apple.com/us/artist/miami-z17/1436806789"
+            class="platform-btn apple"
+            target="_blank"
+           rel="noopener noreferrer">
+          <img src="apple-music-icon.png" alt="Apple Music" class="platform-icon">
+          Apple Music
+        </a>
+        <a href="https://www.youtube.com/@MiamiZ17"
+            class="platform-btn youtube"
+            target="_blank"
+           rel="noopener noreferrer">
+          <img src="youtube-icon.png" alt="YouTube" class="platform-icon">
+          YouTube
+        </a>
+      </div>
+
+      <article class="media-container">
+        <figure class="live-stream">
+          <div id="media-content">
+            <img src="ZDAY 2.png" alt="ZDAY 2 Album Cover" class="album-cover">
+            <video id="main-video" class="video-player" muted playsinline controls>
+              <source id="video-source" src="" type="video/mp4">
+              Your browser does not support the video tag.
             </video>
-            <button class="play-button">Play Video</button>
-            <div class="error-message">Failed to load video. Please try again.</div>
-        </section>
-        <section class="studio-section" id="studio">
-            <h2 class="section-title">Studio Booking</h2>
-            <form action="[YOUR_FORMSPREE_URL]" method="POST" class="booking-form">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="date">Preferred Date:</label>
-                <input type="date" id="date" name="date" required>
-                <label for="details">Additional Details:</label>
-                <textarea id="details" name="details"></textarea>
-                <button type="submit">Book Now</button>
-            </form>
-            <p class="booking-note">Note: Booking confirmation will be sent via email.</p>
-        </section>
-        <section class="beats-section" id="beats">
-            <h2 class="section-title">Beats by MiaMiZ17</h2>
-            <div class="beats-player">
-                <audio class="beats-audio" id="beats-audio" controls>
-                    <source src="beat1.mp3" type="audio/mp3">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-            <div class="beats-controls">
-                <button class="beats-control" data-src="beat1.mp3">Beat 1</button>
-                <button class="beats-control" data-src="beat2.mp3">Beat 2</button>
-                <button class="beats-control" data-src="beat3.mp3">Beat 3</button>
-            </div>
-            <p class="beats-note">Contact us for custom beats or licensing.</p>
-        </section>
-        <section class="visuals-section" id="visuals">
-            <h2 class="section-title">Visuals</h2>
-            <div class="video-gallery">
-                <video class="visual-item" controls>
-                    <source src="video1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <video class="visual-item" controls>
-                    <source src="video2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <video class="visual-item" controls>
-                    <source src="video3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-            <p class="visuals-note">More visuals coming soon!</p>
-        </section>
-        <section class="merch-section" id="merch">
-            <h2 class="section-title">Merch</h2>
-            <div class="merch-gallery">
-                <div class="merch-item">
-                    <img src="https://via.placeholder.com/200" alt="T-Shirt" class="merch-image">
-                    <h3 class="merch-title">ZDAY 2 T-Shirt</h3>
-                    <p class="merch-price">$25.00</p>
-                    <a href="[YOUR_PRINTFUL_URL]" class="merch-buy-btn">Buy Now</a>
-                </div>
-                <div class="merch-item">
-                    <img src="https://via.placeholder.com/200" alt="Hoodie" class="merch-image">
-                    <h3 class="merch-title">ZDAY 2 Hoodie</h3>
-                    <p class="merch-price">$45.00</p>
-                    <a href="[YOUR_PRINTFUL_URL]" class="merch-buy-btn">Buy Now</a>
-                </div>
-            </div>
-            <p class="merch-note">Limited stock available!</p>
-        </section>
-        <footer class="footer">
-            <p>© 2025 MiaMiZ17. All rights reserved.</p>
-            <div class="social-links">
-                <a href="#"><img src="https://via.placeholder.com/24" alt="Instagram" class="social-icon"></a>
-                <a href="#"><img src="https://via.placeholder.com/24" alt="Twitter" class="social-icon"></a>
-                <a href="#"><img src="https://via.placeholder.com/24" alt="YouTube" class="social-icon"></a>
-            </div>
-        </footer>
-    </main>
-    <script src="script.js"></script>
+            <button id="play-button" class="play-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px 20px; background: #D23333; color: white; border: none; border-radius: 5px; cursor: pointer; display: none;">Play Video</button>
+            <p id="video-error" class="error-message" aria-live="assertive">Video failed to load. Check file paths, format, or browser compatibility.</p>
+          </div>
+          <figcaption class="visually-hidden">Album promotional content</figcaption>
+        </figure>
+      </article>
+
+      <!-- Additional Content -->
+      <div class="additional-content content-section">
+        <p>More content to enable scrolling...</p>
+        <p>Additional text to test vertical scrolling.</p>
+        <p>Keep adding lines to ensure the page scrolls smoothly.</p>
+        <p>ZDAY 2 is coming soon! Stay tuned for more updates.</p>
+      </div>
+    </section>
+
+    <!-- Studio Section -->
+    <section id="studio" class="studio-section">
+      <h2 class="section-title">Studio Services</h2>
+      <p>Book recording time, mix, or master services with Miami Z17.</p>
+      <form id="booking-form" class="booking-form" action="https://formspree.io/f/xvoegqdg" method="POST">
+        <input type="hidden" name="_subject" value="New Studio Booking from arabmafia.xyz">
+        <input type="hidden" name="_next" value="https://arabmafia.xyz/thank-you.html">
+        <input type="hidden" name="_to" value="arabmafiaentamg@gmail.com">
+        <label for="service-type">Service Type:</label>
+        <select id="service-type" name="service-type" required>
+          <option value="recording">Recording Time</option>
+          <option value="mixing">Mixing</option>
+          <option value="mastering">Mastering</option>
+        </select>
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required placeholder="Enter your name">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email">
+        <label for="date">Preferred Date:</label>
+        <input type="date" id="date" name="date" required>
+        <label for="message">Additional Details:</label>
+        <textarea id="message" name="message" placeholder="Any special requests?"></textarea>
+        <button type="submit">Submit Booking</button>
+      </form>
+      <p class="booking-note">Notices will be sent to arabmafiaentamg@gmail.com</p>
+    </section>
+
+    <!-- Beats Section -->
+    <section id="beats" class="beats-section">
+      <h2 class="section-title">Beats by Miami Z17</h2>
+      <p>Stream my beats from local files:</p>
+      <div class="beats-player">
+        <audio controls id="beats-audio" class="beats-audio" oncontextmenu="return false;">
+          <source id="beats-source" src="" type="audio/wav">
+          Your browser does not support the audio element.
+        </audio>
+        <div class="beats-controls">
+          <button id="prev-beat" class="beats-control">Previous</button>
+          <button id="play-beat" class="beats-control">Play</button>
+          <button id="next-beat" class="beats-control">Next</button>
+        </div>
+        <ul class="beats-list" id="beats-list">
+          <li data-src="beats/WORKIN-ALL-DAY.wav">Workin All Day</li>
+          <li data-src="beats/hard-to-breathe.wav">Hard to Breathe</li>
+          <li data-src="beats/orange-fanta.wav">Orange Fanta</li>
+        </ul>
+      </div>
+      <p class="beats-note">Contact me for custom beats or licensing details. Download available after payment system setup.</p>
+    </section>
+
+    <!-- Visuals Section (Removed Photo Gallery, Kept Video Gallery) -->
+    <!-- Visuals Section -->
+    <section id="visuals" class="visuals-section">
+      <h2 class="section-title">Visual Works by Miami Z17</h2>
+      <p>Check out my video shoot portfolio:</p>
+      <div class="visuals-gallery">
+        <div class="video-gallery">
+          <iframe src="https://www.youtube.com/embed/gFHHRtLqI0U" title="YouTube Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
+          <iframe src="https://www.youtube.com/embed/wM6tf5eB6Tg" title="YouTube Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
+          <iframe src="https://www.youtube.com/embed/jml5G2Tsn1E" title="YouTube Video 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
+        </div>
+      </div>
+      <p class="visuals-note">More works coming soon! Contact for custom shoots.</p>
+    </section>
+
+    <!-- Merch Section -->
+    <section id="merch" class="merch-section">
+      <h2 class="section-title">Merch by Miami Z17</h2>
+      <p>Check out exclusive Miami Z17 merchandise!</p>
+      <div class="merch-gallery">
+        <div class="merch-item">
+          <img src="rose-tshirt-mockup.jpg" alt="Rose Vibes T-Shirt" class="merch-image">
+          <h3 class="merch-title">Rose Vibes T-Shirt</h3>
+          <p class="merch-price">$25.00</p>
+          <a href="https://www.printful.com/a/miamiz17-rose-vibes-tshirt" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
+        </div>
+      </div>
+      <p class="merch-note">More merch coming soon! Contact for custom orders.</p>
+    </section>
+
+    <footer class="footer">
+      <p>Arab Mafia Entertainment | © 2025 All Rights Reserved</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/akhimiami" target="_blank" rel="noopener noreferrer" class="social-link">
+          <img src="instagram-icon.png" alt="Instagram" class="social-icon">
+        </a>
+        <a href="https://x.com/Miami_z17" target="_blank" rel="noopener noreferrer" class="social-link">
+          <img src="x-icon.png" alt="X" class="social-icon">
+        </a>
+        <a href="https://www.youtube.com/@MiamiZ17" target="_blank" rel="noopener noreferrer" class="social-link">
+          <img src="youtube-icon.png" alt="YouTube" class="social-icon youtube-icon">
+        </a>
+        <a href="https://www.facebook.com/MiamiZ17-402405405405405/" target="_blank" rel="noopener noreferrer" class="social-link">
+          <img src="facebook-icon.png" alt="Facebook" class="social-icon">
+        </a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
