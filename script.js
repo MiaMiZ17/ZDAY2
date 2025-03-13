@@ -190,66 +190,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Initial load
   loadBeat(currentBeatIndex);
-
-  // Dynamically load photoshoot galleries
-  const photoshoot1Gallery = document.getElementById('photoshoot1-gallery');
-  const photoshoot2Gallery = document.getElementById('photoshoot2-gallery');
-
-  // Photoshoot 1 images (1.JPG to 6.JPG) - using folder name with space
-  const photoshoot1Images = [
-    'Photoshoot 1/1.JPG',
-    'Photoshoot 1/2.JPG',
-    'Photoshoot 1/3.JPG',
-    'Photoshoot 1/4.JPG',
-    'Photoshoot 1/5.JPG',
-    'Photoshoot 1/6.JPG'
-  ];
-
-  // Photoshoot 2 images (1.JPG to 12.JPG) - using folder name with space
-  const photoshoot2Images = [
-    'Photoshoot 2/1.JPG',
-    'Photoshoot 2/2.JPG',
-    'Photoshoot 2/3.JPG',
-    'Photoshoot 2/4.JPG',
-    'Photoshoot 2/5.JPG',
-    'Photoshoot 2/6.JPG',
-    'Photoshoot 2/7.JPG',
-    'Photoshoot 2/8.JPG',
-    'Photoshoot 2/9.JPG',
-    'Photoshoot 2/10.JPG',
-    'Photoshoot 2/11.JPG',
-    'Photoshoot 2/12.JPG'
-  ];
-
-  photoshoot1Images.forEach((src, index) => {
-    const img = document.createElement('img');
-    img.src = src;
-    img.alt = `Photoshoot 1 Image ${index + 1}`;
-    img.classList.add('visual-item');
-    img.addEventListener('click', () => {
-      img.classList.toggle('enlarged');
-    });
-    img.onerror = () => {
-      console.error(`Failed to load image: ${src}. Verify the file exists in the "${src.split('/')[0]}" folder or correct the path.`);
-      img.alt = `Failed to load Photoshoot 1 Image ${index + 1}`;
-    };
-    photoshoot1Gallery.appendChild(img);
-  });
-
-  photoshoot2Images.forEach((src, index) => {
-    const img = document.createElement('img');
-    img.src = src;
-    img.alt = `Photoshoot 2 Image ${index + 1}`;
-    img.classList.add('visual-item');
-    img.addEventListener('click', () => {
-      img.classList.toggle('enlarged');
-    });
-    img.onerror = () => {
-      console.error(`Failed to load image: ${src}. Verify the file exists in the "${src.split('/')[0]}" folder or correct the path.`);
-      img.alt = `Failed to load Photoshoot 2 Image ${index + 1}`;
-    };
-    photoshoot2Gallery.appendChild(img);
-  });
 });
 
 // Function to start the video sequence
