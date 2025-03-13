@@ -7,12 +7,9 @@
   <title>ZDAY 2 - Miami Z17</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="preload" href="videos/Mobile-Vid-Promo.mp4" as="video" type="video/mp4">
-  <link rel="preload" href="videos/dust.mp4" as="video" type="video/mp4">
-  <link rel="preload" href="videos/roseburn.mp4" as="video" type="video/mp4">
 </head>
 <body class="with-sidebar" data-mobile="false">
   <!-- Navigation Sidebar -->
-  <!-- Navigation Sidebar (Header Bar on Mobile) -->
   <nav class="sidebar" aria-label="Main navigation">
     <ul class="sidebar-list">
       <li class="sidebar-item">
@@ -59,8 +56,8 @@
 
       <div class="action-buttons">
         <a href="https://distrokid.com/hyperfollow/miamiz17/zday-2-2"
-            class="pre-save"
-            target="_blank"
+           class="pre-save"
+           target="_blank"
            rel="noopener noreferrer">
           PRE-SAVE ON SPOTIFY
         </a>
@@ -68,22 +65,22 @@
 
       <div class="platform-buttons">
         <a href="https://open.spotify.com/artist/6BsZlxrxvPEV6t7VX4XJQH"
-            class="platform-btn spotify"
-            target="_blank"
+           class="platform-btn spotify"
+           target="_blank"
            rel="noopener noreferrer">
           <img src="spotify-icon.png" alt="Spotify" class="platform-icon">
           Spotify
         </a>
         <a href="https://music.apple.com/us/artist/miami-z17/1436806789"
-            class="platform-btn apple"
-            target="_blank"
+           class="platform-btn apple"
+           target="_blank"
            rel="noopener noreferrer">
           <img src="apple-music-icon.png" alt="Apple Music" class="platform-icon">
           Apple Music
         </a>
         <a href="https://www.youtube.com/@MiamiZ17"
-            class="platform-btn youtube"
-            target="_blank"
+           class="platform-btn youtube"
+           target="_blank"
            rel="noopener noreferrer">
           <img src="youtube-icon.png" alt="YouTube" class="platform-icon">
           YouTube
@@ -94,8 +91,8 @@
         <figure class="live-stream">
           <div id="media-content">
             <img src="ZDAY 2.png" alt="ZDAY 2 Album Cover" class="album-cover">
-            <video id="main-video" class="video-player" muted playsinline controls>
-              <source id="video-source" src="" type="video/mp4">
+            <video id="main-video" class="video-player" muted playsinline preload="auto">
+              <source id="video-source" src="videos/Mobile-Vid-Promo.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
             <button id="play-button" class="play-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px 20px; background: #D23333; color: white; border: none; border-radius: 5px; cursor: pointer; display: none;">Play Video</button>
@@ -105,7 +102,6 @@
         </figure>
       </article>
 
-      <!-- Additional Content -->
       <div class="additional-content content-section">
         <p>ZDAY 2 is coming soon! Stay tuned for more updates.</p>
       </div>
@@ -121,6 +117,7 @@
         <input type="hidden" name="_to" value="arabmafiaentamg@gmail.com">
         <label for="service-type">Service Type:</label>
         <select id="service-type" name="service-type" required>
+          <option value="" disabled selected>Select a service</option>
           <option value="recording">Recording Time</option>
           <option value="mixing">Mixing</option>
           <option value="mastering">Mastering</option>
@@ -130,11 +127,12 @@
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required placeholder="Enter your email">
         <label for="date">Preferred Date:</label>
-        <input type="date" id="date" name="date" required>
+        <input type="date" id="date" name="date" required min="2025-03-13">
         <label for="message">Additional Details:</label>
         <textarea id="message" name="message" placeholder="Any special requests?"></textarea>
         <button type="submit">Submit Booking</button>
       </form>
+      <p id="booking-confirmation" class="booking-confirmation" style="display: none; color: #D23333; margin-top: 10px;">Booking submitted! We’ll confirm via email soon.</p>
       <p class="booking-note">Notices will be sent to arabmafiaentamg@gmail.com</p>
     </section>
 
@@ -143,9 +141,9 @@
       <h2 class="section-title">Beats by Miami Z17</h2>
       <p>Stream my beats from local files:</p>
       <div class="beats-player">
-        <audio controls id="beats-audio" class="beats-audio" oncontextmenu="return false;">
-          <source id="beats-source" src="" type="audio/wav">
-          Your browser does not support the audio element.
+        <audio id="beats-audio" class="beats-audio" preload="auto">
+          <source id="beats-source" src="beats/WORKIN-ALL-DAY.wav" type="audio/wav">
+          Your browser does not support the audio element. Please try a different browser or device.
         </audio>
         <div class="beats-controls">
           <button id="prev-beat" class="beats-control">Previous</button>
@@ -161,7 +159,6 @@
       <p class="beats-note">Contact me for custom beats or licensing details. Download available after payment system setup.</p>
     </section>
 
-    <!-- Visuals Section (Removed Photo Gallery, Kept Video Gallery) -->
     <!-- Visuals Section -->
     <section id="visuals" class="visuals-section">
       <h2 class="section-title">Visual Works by Miami Z17</h2>
@@ -186,6 +183,24 @@
           <h3 class="merch-title">Rose Vibes T-Shirt</h3>
           <p class="merch-price">$25.00</p>
           <a href="https://www.printful.com/a/miamiz17-rose-vibes-tshirt" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
+        </div>
+        <div class="merch-item">
+          <img src="zday2-hoodie-mockup.jpg" alt="ZDAY 2 Hoodie" class="merch-image">
+          <h3 class="merch-title">ZDAY 2 Hoodie</h3>
+          <p class="merch-price">$45.00</p>
+          <a href="https://www.printful.com/a/miamiz17-zday2-hoodie" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
+        </div>
+        <div class="merch-item">
+          <img src="rose-on-fire-tshirt-mockup.jpg" alt="Rose on Fire T-Shirt" class="merch-image">
+          <h3 class="merch-title">Rose on Fire T-Shirt</h3>
+          <p class="merch-price">$25.00</p>
+          <a href="https://www.printful.com/a/miamiz17-rose-on-fire-tshirt" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
+        </div>
+        <div class="merch-item">
+          <img src="iphone-rose-emoji-tshirt-mockup.jpg" alt="iPhone Rose Emoji T-Shirt" class="merch-image">
+          <h3 class="merch-title">iPhone Rose Emoji T-Shirt</h3>
+          <p class="merch-price">$25.00</p>
+          <a href="https://www.printful.com/a/miamiz17-iphone-rose-emoji-tshirt" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
         </div>
       </div>
       <p class="merch-note">More merch coming soon! Contact for custom orders.</p>
