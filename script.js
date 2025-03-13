@@ -195,29 +195,31 @@ document.addEventListener('DOMContentLoaded', async () => {
   const photoshoot1Gallery = document.getElementById('photoshoot1-gallery');
   const photoshoot2Gallery = document.getElementById('photoshoot2-gallery');
 
-const photoshoot1Images = [
-  'Photoshoot1/1.JPG',
-  'Photoshoot1/2.JPG',
-  'Photoshoot1/3.JPG',
-  'Photoshoot1/4.JPG',
-  'Photoshoot1/5.JPG',
-  'Photoshoot1/6.JPG'
-];
+  // Photoshoot 1 images (1.JPG to 6.JPG) - using folder structure
+  const photoshoot1Images = [
+    'Photoshoot1/1.JPG',
+    'Photoshoot1/2.JPG',
+    'Photoshoot1/3.JPG',
+    'Photoshoot1/4.JPG',
+    'Photoshoot1/5.JPG',
+    'Photoshoot1/6.JPG'
+  ];
 
-const photoshoot2Images = [
-  'Photoshoot2/1.JPG',
-  'Photoshoot2/2.JPG',
-  'Photoshoot2/3.JPG',
-  'Photoshoot2/4.JPG',
-  'Photoshoot2/5.JPG',
-  'Photoshoot2/6.JPG',
-  'Photoshoot2/7.JPG',
-  'Photoshoot2/8.JPG',
-  'Photoshoot2/9.JPG',
-  'Photoshoot2/10.JPG',
-  'Photoshoot2/11.JPG',
-  'Photoshoot2/12.JPG'
-];
+  // Photoshoot 2 images (1.JPG to 12.JPG) - using folder structure
+  const photoshoot2Images = [
+    'Photoshoot2/1.JPG',
+    'Photoshoot2/2.JPG',
+    'Photoshoot2/3.JPG',
+    'Photoshoot2/4.JPG',
+    'Photoshoot2/5.JPG',
+    'Photoshoot2/6.JPG',
+    'Photoshoot2/7.JPG',
+    'Photoshoot2/8.JPG',
+    'Photoshoot2/9.JPG',
+    'Photoshoot2/10.JPG',
+    'Photoshoot2/11.JPG',
+    'Photoshoot2/12.JPG'
+  ];
 
   photoshoot1Images.forEach((src, index) => {
     const img = document.createElement('img');
@@ -228,7 +230,7 @@ const photoshoot2Images = [
       img.classList.toggle('enlarged');
     });
     img.onerror = () => {
-      console.error(`Failed to load image: ${src}. Check if the file exists in the root directory or correct the path.`);
+      console.error(`Failed to load image: ${src}. Verify the file exists in the ${src.split('/')[0]} folder or correct the path.`);
       img.alt = `Failed to load Photoshoot 1 Image ${index + 1}`;
     };
     photoshoot1Gallery.appendChild(img);
@@ -243,7 +245,7 @@ const photoshoot2Images = [
       img.classList.toggle('enlarged');
     });
     img.onerror = () => {
-      console.error(`Failed to load image: ${src}. Check if the file exists in the root directory or correct the path.`);
+      console.error(`Failed to load image: ${src}. Verify the file exists in the ${src.split('/')[0]} folder or correct the path.`);
       img.alt = `Failed to load Photoshoot 2 Image ${index + 1}`;
     };
     photoshoot2Gallery.appendChild(img);
