@@ -6,12 +6,15 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif; /* Fallback font for body text */
   background-color: #1a1a1a;
   color: #fff;
   line-height: 1.6;
   overflow-x: hidden;
 }
+
+/* Load Bricolage Grotesque and Kundiman from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&family=Kundiman&display=swap');
 
 /* Sidebar (Header Bar on Mobile) */
 .sidebar {
@@ -113,6 +116,8 @@ body {
 }
 
 .title {
+  font-family: 'Kundiman', Arial, sans-serif; /* Use Kundiman for the "ZDAY 2" title */
+  font-weight: 400;
   font-size: 48px;
   color: #D23333;
 }
@@ -131,6 +136,7 @@ body {
 }
 
 .countdown {
+  font-family: 'Bricolage Grotesque', Arial, sans-serif; /* Use Bricolage Grotesque for countdown */
   font-size: 24px;
   margin-bottom: 20px;
 }
@@ -235,7 +241,6 @@ body {
 }
 
 #media-content {
-  position: relative;
   position: absolute;
   top: 0;
   left: 0;
@@ -285,7 +290,6 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
-  opacity: 1;
 }
 
 .error-message {
@@ -314,6 +318,8 @@ body {
 }
 
 .section-title {
+  font-family: 'Bricolage Grotesque', Arial, sans-serif; /* Use Bricolage Grotesque for section titles */
+  font-weight: 700;
   font-size: 32px;
   color: #D23333;
   margin-bottom: 20px;
@@ -512,6 +518,8 @@ body {
 }
 
 .merch-title {
+  font-family: 'Bricolage Grotesque', Arial, sans-serif; /* Use Bricolage Grotesque for merch titles */
+  font-weight: 700;
   font-size: 18px;
   margin: 10px 0;
 }
