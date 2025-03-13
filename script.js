@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   for (const beat of beatSources) {
     const isAccessible = await testMediaUrl(beat);
     if (!isAccessible) {
-      console.error(`Audio file ${beat} is not accessible. Please check the file path.`);
+      console.error(`Audio file ${beat} is not accessible. Please check the file path or redeploy the site.`);
     }
   }
 
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  // Initial load and play
+  loadBeat(currentBeatIndex);
+
   playButtonAudio.addEventListener('click', () => {
     if (audioPlayer.paused) {
       if (videoPlayer && !videoPlayer.paused) {
@@ -129,6 +132,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         playButtonAudio.textContent = 'Pause';
       }).catch(error => {
         console.error('Audio play failed:', error);
+        if (error.name === 'NotAllowedError' || error.name === 'NotSupportedError') {
+          alert('Audio playback requires user interaction or is not supported in this browser. Please click "Play" again or try a different browser.');
+        }
       });
     } else {
       audioPlayer.pause();
@@ -163,9 +169,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       audioPlayer.play().catch(error => console.error('Audio play failed:', error));
     }
   });
-
-  // Initial load
-  loadBeat(currentBeatIndex);
 
   // Form submission feedback
   const bookingForm = document.getElementById('booking-form');
