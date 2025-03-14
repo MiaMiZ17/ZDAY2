@@ -179,13 +179,13 @@ body {
   }
 }
 
-/* Media container */
+/* Media container (Video Promo) */
 .media-container {
   position: relative;
   width: 100%;
   max-width: 800px;
   margin: 0 auto 20px;
-  background-color: transparent; /* Remove white box */
+  background-color: transparent;
 }
 
 .live-stream {
@@ -213,7 +213,7 @@ body {
   opacity: 1;
   transition: opacity 2s ease;
   border-radius: 10px;
-  background-color: #000; /* Dark background instead of white */
+  background-color: #000;
 }
 
 .video-player {
@@ -225,7 +225,7 @@ body {
   opacity: 0;
   transition: opacity 2s ease;
   border-radius: 10px;
-  background-color: #000; /* Dark background */
+  background-color: #000;
 }
 
 .video-player.active {
@@ -304,15 +304,23 @@ body {
     font-size: 12px;
     padding: 8px;
   }
+
+  .media-container {
+    max-width: 100%;
+  }
 }
 
-/* Music Players */
+/* Music Section (Apple Music Player) */
+.music-section {
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 10px 0;
+}
+
 .music-player {
-  margin-top: 20px;
   width: 100%;
   max-width: 660px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
 .apple-player iframe {
@@ -320,20 +328,30 @@ body {
   display: block;
   margin: 0 auto;
   width: 100%;
+  border-radius: 10px;
 }
 
 @media (max-width: 768px) {
+  .music-section {
+    margin: 10px auto;
+  }
+
   .apple-player iframe {
     height: 250px; /* Reduced height for mobile */
   }
+}
 
-  .media-container {
-    max-width: 100%;
-  }
+/* Additional Content */
+.additional-content {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 16px;
+}
 
+@media (max-width: 768px) {
   .additional-content {
-    margin-top: 10px;
     font-size: 14px;
+    margin: 5px 0;
   }
 }
 
@@ -343,7 +361,7 @@ body {
   padding: 20px;
   background-color: #222;
   border-radius: 10px;
-  overflow: hidden; /* Prevent overflow issues */
+  overflow: hidden;
 }
 
 .section-title {
