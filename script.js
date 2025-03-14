@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       setTimeout(() => {
         videoPlayer.classList.add('active');
         playButton.style.display = 'block';
-      }, 2000);
+      }, 2000); // Ensure fade-out completes before showing play button
     }, 0);
 
     playButton.addEventListener('click', () => {
