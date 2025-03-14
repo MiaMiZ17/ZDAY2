@@ -724,9 +724,9 @@ body {
   margin-top: 20px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .merch-image {
-    height: 150px;
+    height: 1000px;
   }
 
   .merch-title {
