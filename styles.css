@@ -163,17 +163,17 @@ body {
 .platform-buttons {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-top: 15px;
+  gap: 8px; /* Further reduced gap for better spacing */
+  margin-top: 8px;
   flex-wrap: wrap;
 }
 
 .platform-button {
   display: inline-flex;
   align-items: center;
-  padding: 8px;
+  padding: 3px; /* Reduced padding to make buttons smaller */
   background-color: transparent;
-  border: 2px solid #fff;
+  border: 1px solid #fff; /* Thinner border */
   border-radius: 5px;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
@@ -184,8 +184,8 @@ body {
 }
 
 .platform-icon {
-  width: 30px;
-  height: 30px;
+  width: 16px; /* Reduced icon size from 20px to 16px on desktop */
+  height: 16px;
 }
 
 .spotify .platform-icon {
@@ -219,17 +219,17 @@ body {
   }
 
   .platform-buttons {
-    gap: 10px;
-    margin-top: 10px;
+    gap: 6px; /* Further reduced gap for mobile */
+    margin-top: 6px;
   }
 
   .platform-button {
-    padding: 6px;
+    padding: 2px; /* Further reduced padding for mobile */
   }
 
   .platform-icon {
-    width: 24px;
-    height: 24px;
+    width: 14px; /* Further reduced icon size for mobile from 16px to 14px */
+    height: 14px;
   }
 
   .control-panel {
