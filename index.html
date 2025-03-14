@@ -74,137 +74,138 @@
               <span class="play-icon">▶</span>
             </button>
             <p id="video-error" class="error-message" aria-live="assertive">Video failed to load. Check file paths, format, or browser compatibility.</p>
-            <!-- Apple Music Player -->
-            <div class="music-player apple-player">
-              <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/ae/album/zday-2/1801773202" loading="lazy"></iframe>
-            </div>
           </div>
-          <figcaption class="visually-hidden">Album promotional content and music streams</figcaption>
+          <figcaption class="visually-hidden">Album promotional video</figcaption>
         </figure>
       </article>
+
+      <section class="music-section">
+        <div class="music-player apple-player">
+          <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/ae/album/zday-2/1801773202" loading="lazy"></iframe>
+        </div>
+      </section>
 
       <div class="additional-content content-section">
         <p>ZDAY 2 is now live! Stream it on Apple Music, Spotify, and more.</p>
       </div>
-    </section>
 
-    <!-- Studio Section -->
-    <section id="studio" class="studio-section">
-      <h2 class="section-title">Studio Services</h2>
-      <p>Book recording time, mix, or master services with Miami Z17.</p>
-      <form id="booking-form" class="booking-form" action="https://formspree.io/f/xqapkjdp" method="POST">
-        <input type="hidden" name="_subject" value="New Studio Booking from arabmafia.xyz">
-        <input type="hidden" name="_next" value="https://arabmafia.xyz/thank-you.html">
-        <input type="hidden" name="_to" value="arabmafiaentamg@gmail.com">
-        <label for="service-type">Service Type:</label>
-        <select id="service-type" name="service-type" required>
-          <option value="" disabled selected>Select a service</option>
-          <option value="recording">Recording Time</option>
-          <option value="mixing">Mixing</option>
-          <option value="mastering">Mastering</option>
-        </select>
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" name="name" required placeholder="Enter your name">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required placeholder="Enter your email">
-        <label for="date">Preferred Date:</label>
-        <input type="date" id="date" name="date" required min="2025-03-13">
-        <label for="message">Additional Details:</label>
-        <textarea id="message" name="message" placeholder="Any special requests?"></textarea>
-        <button type="submit">Submit</button>
-      </form>
-      <p id="booking-confirmation" class="booking-confirmation" style="display: none; color: #D23333; margin-top: 10px;">Booking submitted! We’ll confirm via email soon.</p>
-      <p class="booking-note">Notices will be sent to arabmafiaentamg@gmail.com</p>
-    </section>
+      <!-- Studio Section -->
+      <section id="studio" class="studio-section">
+        <h2 class="section-title">Studio Services</h2>
+        <p>Book recording time, mix, or master services with Miami Z17.</p>
+        <form id="booking-form" class="booking-form" action="https://formspree.io/f/xqapkjdp" method="POST">
+          <input type="hidden" name="_subject" value="New Studio Booking from arabmafia.xyz">
+          <input type="hidden" name="_next" value="https://arabmafia.xyz/thank-you.html">
+          <input type="hidden" name="_to" value="arabmafiaentamg@gmail.com">
+          <label for="service-type">Service Type:</label>
+          <select id="service-type" name="service-type" required>
+            <option value="" disabled selected>Select a service</option>
+            <option value="recording">Recording Time</option>
+            <option value="mixing">Mixing</option>
+            <option value="mastering">Mastering</option>
+          </select>
+          <label for="name">Your Name:</label>
+          <input type="text" id="name" name="name" required placeholder="Enter your name">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required placeholder="Enter your email">
+          <label for="date">Preferred Date:</label>
+          <input type="date" id="date" name="date" required min="2025-03-13">
+          <label for="message">Additional Details:</label>
+          <textarea id="message" name="message" placeholder="Any special requests?"></textarea>
+          <button type="submit">Submit</button>
+        </form>
+        <p id="booking-confirmation" class="booking-confirmation" style="display: none; color: #D23333; margin-top: 10px;">Booking submitted! We’ll confirm via email soon.</p>
+        <p class="booking-note">Notices will be sent to arabmafiaentamg@gmail.com</p>
+      </section>
 
-    <!-- Beats Section -->
-    <section id="beats" class="beats-section">
-      <h2 class="section-title">Beats by Miami Z17</h2>
-      <p>Stream my beats from local files:</p>
-      <div class="beats-player">
-        <audio id="beats-audio" class="beats-audio" preload="auto">
-          <source id="beats-source" src="beats/WORKIN-ALL-DAY.wav" type="audio/wav">
-          Your browser does not support the audio element. Please try a different browser or device.
-        </audio>
-        <div class="beats-controls">
-          <button id="prev-beat" class="beats-control">Previous</button>
-          <button id="play-beat" class="beats-control">Play</button>
-          <button id="next-beat" class="beats-control">Next</button>
+      <!-- Beats Section -->
+      <section id="beats" class="beats-section">
+        <h2 class="section-title">Beats by Miami Z17</h2>
+        <p>Stream my beats from local files:</p>
+        <div class="beats-player">
+          <audio id="beats-audio" class="beats-audio" preload="auto">
+            <source id="beats-source" src="beats/WORKIN-ALL-DAY.wav" type="audio/wav">
+            Your browser does not support the audio element. Please try a different browser or device.
+          </audio>
+          <div class="beats-controls">
+            <button id="prev-beat" class="beats-control">Previous</button>
+            <button id="play-beat" class="beats-control">Play</button>
+            <button id="next-beat" class="beats-control">Next</button>
+          </div>
+          <ul class="beats-list" id="beats-list">
+            <li data-src="beats/WORKIN-ALL-DAY.wav">Workin All Day</li>
+            <li data-src="beats/hard-to-breathe.wav">Box Truck</li>
+            <li data-src="beats/orange-fanta.wav">Orange Fanta (DQ Collab)</li>
+          </ul>
         </div>
-        <ul class="beats-list" id="beats-list">
-          <li data-src="beats/WORKIN-ALL-DAY.wav">Workin All Day</li>
-          <li data-src="beats/hard-to-breathe.wav">Box Truck</li>
-          <li data-src="beats/orange-fanta.wav">Orange Fanta (DQ Collab)</li>
-        </ul>
-      </div>
-      <p class="beats-note">Contact me for custom beats or licensing details. Download available after payment system setup.</p>
-    </section>
+        <p class="beats-note">Contact me for custom beats or licensing details. Download available after payment system setup.</p>
+      </section>
 
-    <!-- Visuals Section -->
-    <section id="visuals" class="visuals-section">
-      <h2 class="section-title">Visual Works by Miami Z17</h2>
-      <p>Check out my videoshoot/video editing portfolio:</p>
-      <div class="visuals-gallery">
-        <div class="video-gallery">
-          <iframe src="https://www.youtube.com/embed/gFHHRtLqI0U" title="YouTube Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
-          <iframe src="https://www.youtube.com/embed/wM6tf5eB6Tg" title="YouTube Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
-          <iframe src="https://www.youtube.com/embed/jml5G2Tsn1E" title="YouTube Video 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
+      <!-- Visuals Section -->
+      <section id="visuals" class="visuals-section">
+        <h2 class="section-title">Visual Works by Miami Z17</h2>
+        <p>Check out my videoshoot/video editing portfolio:</p>
+        <div class="visuals-gallery">
+          <div class="video-gallery">
+            <iframe src="https://www.youtube.com/embed/gFHHRtLqI0U" title="YouTube Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
+            <iframe src="https://www.youtube.com/embed/wM6tf5eB6Tg" title="YouTube Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
+            <iframe src="https://www.youtube.com/embed/jml5G2Tsn1E" title="YouTube Video 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="visual-item"></iframe>
+          </div>
         </div>
-      </div>
-      <p class="visuals-note">More works coming soon! Contact for custom shoots.</p>
-    </section>
+        <p class="visuals-note">More works coming soon! Contact for custom shoots.</p>
+      </section>
 
-    <!-- Merch Section -->
-    <section id="merch" class="merch-section">
-      <h2 class="section-title">Merch by Miami Z17</h2>
-      <p>Check out exclusive Miami Z17 merchandise!</p>
-      <div class="merch-gallery">
-        <div class="merch-item">
-          <img src="rose-tshirt-mockup.jpg" alt="Rose Vibes T-Shirt" class="merch-image">
-          <h3 class="merch-title">Rose Vibes T-Shirt</h3>
-          <p class="merch-price">$25.00</p>
-          <a href="https://www.printful.com/a/miamiz17-rose-vibes-tshirt" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
+      <!-- Merch Section -->
+      <section id="merch" class="merch-section">
+        <h2 class="section-title">Merch by Miami Z17</h2>
+        <p>Check out exclusive Miami Z17 merchandise!</p>
+        <div class="merch-gallery">
+          <div class="merch-item">
+            <img src="rose-tshirt-mockup.jpg" alt="Rose Vibes T-Shirt" class="merch-image">
+            <h3 class="merch-title">Rose Vibes T-Shirt</h3>
+            <p class="merch-price">$25.00</p>
+            <a href="https://www.printful.com/a/miamiz17-rose-vibes-tshirt" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
+          </div>
+          <div class="merch-item">
+            <img src="zday2-hoodie-mockup-new.jpg" alt="ZDAY 2 Hoodie (New Design)" class="merch-image">
+            <h3 class="merch-title">ZDAY 2 Hat (New Design)</h3>
+            <p class="merch-price">$45.00</p>
+            <a href="https://www.printful.com/a/miamiz17-zday2-hoodie-new" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
+          </div>
+          <div class="merch-item">
+            <img src="rose-on-fire-tshirt-mockup.jpg" alt="Rose on Fire T-Shirt" class="merch-image">
+            <h3 class="merch-title">Rose on Fire T-Shirt</h3>
+            <p class="merch-price">$25.00</p>
+            <a href="https://www.printful.com/a/miamiz17-rose-on-fire-tshirt" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
+          </div>
+          <div class="merch-item">
+            <img src="iphone-rose-emoji-tshirt-mockup.jpg" alt="iPhone Rose Emoji T-Shirt" class="merch-image">
+            <h3 class="merch-title">iPhone Rose Emoji T-Shirt</h3>
+            <p class="merch-price">$25.00</p>
+            <a href="https://www.printful.com/a/miamiz17-iphone-rose-emoji-tshirt" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
+          </div>
         </div>
-        <div class="merch-item">
-          <img src="zday2-hoodie-mockup-new.jpg" alt="ZDAY 2 Hoodie (New Design)" class="merch-image">
-          <h3 class="merch-title">ZDAY 2 Hat (New Design)</h3>
-          <p class="merch-price">$45.00</p>
-          <a href="https://www.printful.com/a/miamiz17-zday2-hoodie-new" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
-        </div>
-        <div class="merch-item">
-          <img src="rose-on-fire-tshirt-mockup.jpg" alt="Rose on Fire T-Shirt" class="merch-image">
-          <h3 class="merch-title">Rose on Fire T-Shirt</h3>
-          <p class="merch-price">$25.00</p>
-          <a href="https://www.printful.com/a/miamiz17-rose-on-fire-tshirt" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
-        </div>
-        <div class="merch-item">
-          <img src="iphone-rose-emoji-tshirt-mockup.jpg" alt="iPhone Rose Emoji T-Shirt" class="merch-image">
-          <h3 class="merch-title">iPhone Rose Emoji T-Shirt</h3>
-          <p class="merch-price">$25.00</p>
-          <a href="https://www.printful.com/a/miamiz17-iphone-rose-emoji-tshirt" class="merch-buy-btn" target="_blank" rel="noopener noreferrer">Buy Now</a>
-        </div>
-      </div>
-      <p class="merch-note">More merch coming soon! Contact for custom orders.</p>
-    </section>
+        <p class="merch-note">More merch coming soon! Contact for custom orders.</p>
+      </section>
 
-    <footer class="footer">
-      <p>Arab Mafia Entertainment | © 2025 All Rights Reserved</p>
-      <div class="social-links">
-        <a href="https://www.instagram.com/arabmafiaent/" target="_blank" rel="noopener noreferrer" class="social-link">
-          <img src="instagram-icon.png" alt="Instagram" class="social-icon">
-        </a>
-        <a href="https://x.com/Miami_z17" target="_blank" rel="noopener noreferrer" class="social-link">
-          <img src="x-icon.png" alt="X" class="social-icon">
-        </a>
-        <a href="https://www.youtube.com/@arabmafia5763" target="_blank" rel="noopener noreferrer" class="social-link">
-          <img src="youtube-icon.png" alt="YouTube" class="social-icon youtube-icon">
-        </a>
-        <a href="https://www.facebook.com/MiamiZ17" target="_blank" rel="noopener noreferrer" class="social-link">
-          <img src="facebook-icon.png" alt="Facebook" class="social-icon">
-        </a>
-      </div>
-    </footer>
-  </main>
+      <footer class="footer">
+        <p>Arab Mafia Entertainment | © 2025 All Rights Reserved</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/arabmafiaent/" target="_blank" rel="noopener noreferrer" class="social-link">
+            <img src="instagram-icon.png" alt="Instagram" class="social-icon">
+          </a>
+          <a href="https://x.com/Miami_z17" target="_blank" rel="noopener noreferrer" class="social-link">
+            <img src="x-icon.png" alt="X" class="social-icon">
+          </a>
+          <a href="https://www.youtube.com/@arabmafia5763" target="_blank" rel="noopener noreferrer" class="social-link">
+            <img src="youtube-icon.png" alt="YouTube" class="social-icon youtube-icon">
+          </a>
+          <a href="https://www.facebook.com/MiamiZ17" target="_blank" rel="noopener noreferrer" class="social-link">
+            <img src="facebook-icon.png" alt="Facebook" class="social-icon">
+          </a>
+        </div>
+      </footer>
+    </main>
 
   <script src="script.js" defer></script>
 </body>
