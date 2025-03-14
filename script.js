@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Attempt autoplay with fallback to play button
     videoPlayer.play().catch(error => {
       console.error("Video autoplay failed:", error);
-      // Play button is already shown, no further action needed
     });
   } else {
     if (!videoPlayer || !playButton) {
@@ -189,12 +188,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Countdown timer set to end on March 14, 2025, at 1:00 AM EST (5:00 AM UTC)
-  const countDownDate = new Date(Date.UTC(2025, 2, 14, 5, 0, 0)).getTime(); // March 14, 2025, 5:00 AM UTC
+  const countDownDate = new Date(Date.UTC(2025, 2, 14, 5, 0, 0)).getTime();
   const now = new Date().toISOString();
   const nowUTC = new Date(now).getTime();
   const distance = countDownDate - nowUTC;
 
-  // Since the release date has passed, immediately show "ZDAY 2 has arrived!"
   if (distance > 0) {
     const hours = Math.floor(distance / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
