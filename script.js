@@ -51,31 +51,36 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Video sequence logic
-  if (albumCover && videoPlayer) {
+  if (albumCover && videoPlayer && playButton) {
     setTimeout(() => {
       albumCover.classList.add('fade-out');
       setTimeout(() => {
         videoPlayer.classList.add('active');
         playButton.style.display = 'block';
-        playButton.addEventListener('click', () => {
-          videoPlayer.play().then(() => {
-            console.log("Video playing");
-            playButton.style.display = 'none';
-          }).catch(error => {
-            console.error("Video playback failed:", error);
-            videoError.textContent = `Video failed: ${error.message}.`;
-            videoError.style.display = 'block';
-          });
-        });
-        // Attempt autoplay
-        videoPlayer.play().catch(error => {
-          console.error("Video autoplay failed:", error);
-          // Play button is already shown, so no further action needed
-        });
       }, 2000);
     }, 0);
+
+    playButton.addEventListener('click', () => {
+      videoPlayer.play().then(() => {
+        console.log("Video playing");
+        playButton.style.display = 'none';
+      }).catch(error => {
+        console.error("Video playback failed:", error);
+        videoError.textContent = `Video failed: ${error.message}.`;
+        videoError.style.display = 'block';
+      });
+    });
+
+    // Attempt autoplay with fallback to play button
+    videoPlayer.play().catch(error => {
+      console.error("Video autoplay failed:", error);
+      // Play button is already shown, no further action needed
+    });
   } else {
-    videoError.style.display = 'block';
+    if (!videoPlayer || !playButton) {
+      videoError.textContent = "Video or play button element not found.";
+      videoError.style.display = 'block';
+    }
   }
 
   // Audio player setup
