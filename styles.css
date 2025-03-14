@@ -101,8 +101,8 @@ body {
 @media (max-width: 768px) {
   .container {
     margin-left: 0;
-    margin-top: 60px; /* Space for header bar */
-    padding: 10px; /* Reduced padding for mobile */
+    margin-top: 60px;
+    padding: 10px;
   }
 }
 
@@ -121,21 +121,22 @@ body {
 
 @media (max-width: 768px) {
   .title {
-    font-size: 36px;
-    margin-top: 20px;
+    font-size: 32px;
+    margin-top: 10px;
   }
 }
 
 /* Control panel */
 .control-panel {
   text-align: center;
-  padding-bottom: 60px;
+  padding-bottom: 80px; /* Space for sticky pre-save button */
 }
 
 .countdown {
   font-family: 'Bricolage Grotesque', Arial, sans-serif;
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  display: none; /* Hide countdown on mobile for simplicity */
 }
 
 .action-buttons {
@@ -173,50 +174,8 @@ body {
     z-index: 1000;
   }
 
-  .countdown {
-    font-size: 20px;
-  }
-}
-
-.platform-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.platform-btn {
-  display: flex;
-  align-items: center;
-  padding: 10px 15px;
-  background-color: #333;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-}
-
-.platform-btn:hover {
-  background-color: #444;
-}
-
-.platform-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-}
-
-@media (max-width: 768px) {
-  .platform-btn {
-    padding: 8px 12px;
-    font-size: 12px;
-  }
-
-  .platform-icon {
-    width: 18px;
-    height: 18px;
+  .control-panel {
+    padding-bottom: 70px;
   }
 }
 
@@ -226,7 +185,7 @@ body {
   width: 100%;
   max-width: 800px;
   margin: 0 auto 20px;
-  background-color: #000;
+  background-color: transparent; /* Remove white box */
 }
 
 .live-stream {
@@ -254,6 +213,7 @@ body {
   opacity: 1;
   transition: opacity 2s ease;
   border-radius: 10px;
+  background-color: #000; /* Dark background instead of white */
 }
 
 .video-player {
@@ -265,6 +225,7 @@ body {
   opacity: 0;
   transition: opacity 2s ease;
   border-radius: 10px;
+  background-color: #000; /* Dark background */
 }
 
 .video-player.active {
@@ -299,6 +260,12 @@ body {
   background-color: rgba(0, 0, 0, 0.8);
   padding: 10px;
   border-radius: 5px;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
 }
 
 .play-button {
@@ -332,10 +299,14 @@ body {
     font-size: 14px;
     padding: 10px 20px;
   }
+
+  .error-message {
+    font-size: 12px;
+    padding: 8px;
+  }
 }
 
-/* HyperFollow and Music Players */
-.hyperfollow-player,
+/* Music Players */
 .music-player {
   margin-top: 20px;
   width: 100%;
@@ -344,18 +315,25 @@ body {
   margin-right: auto;
 }
 
-.hyperfollow-player iframe,
 .apple-player iframe {
   border: none;
   display: block;
   margin: 0 auto;
-  width: 100%; /* Ensure full width within max-width */
+  width: 100%;
 }
 
 @media (max-width: 768px) {
-  .hyperfollow-player iframe,
   .apple-player iframe {
     height: 250px; /* Reduced height for mobile */
+  }
+
+  .media-container {
+    max-width: 100%;
+  }
+
+  .additional-content {
+    margin-top: 10px;
+    font-size: 14px;
   }
 }
 
@@ -365,6 +343,7 @@ body {
   padding: 20px;
   background-color: #222;
   border-radius: 10px;
+  overflow: hidden; /* Prevent overflow issues */
 }
 
 .section-title {
@@ -379,9 +358,10 @@ body {
 .booking-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  max-width: 500px;
+  gap: 10px;
+  max-width: 100%;
   margin: 0 auto;
+  padding: 0 10px;
 }
 
 .booking-form label {
@@ -434,6 +414,7 @@ body {
 @media (max-width: 768px) {
   .studio-section {
     padding: 10px;
+    margin-top: 20px;
   }
 
   .section-title {
@@ -450,6 +431,10 @@ body {
   .booking-form button {
     font-size: 14px;
     padding: 8px;
+  }
+
+  .booking-form {
+    gap: 8px;
   }
 }
 
@@ -553,7 +538,7 @@ body {
 
 @media (max-width: 768px) {
   .video-gallery {
-    grid-template-columns: 1fr; /* Stack videos vertically on mobile */
+    grid-template-columns: 1fr;
   }
 }
 
