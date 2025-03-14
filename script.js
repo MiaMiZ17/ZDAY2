@@ -184,20 +184,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-// Countdown timer set to reflect "ZDAY 2" is out now
-const releaseDate = new Date(Date.UTC(2025, 2, 9, 0, 0, 0)).getTime(); // March 9, 2025, 12:00 AM UTC (ZDAY 2 release)
+// Countdown timer set to end on March 14, 2025, at 1:00 AM EST (5:00 AM UTC)
+const countDownDate = new Date(Date.UTC(2025, 2, 14, 5, 0, 0)).getTime(); // March 14, 2025, 5:00 AM UTC
 const x = setInterval(function() {
   const now = new Date().toISOString();
   const nowUTC = new Date(now).getTime();
-  const distance = nowUTC - releaseDate; // Calculate time since release
+  const distance = countDownDate - nowUTC;
 
   if (distance > 0) {
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const hours = Math.floor(distance / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("countdown").innerHTML = `ZDAY 2 is OUT! ${days}d ${hours}h ${minutes}m ${seconds}s ago`;
+    document.getElementById("countdown").innerHTML = `${hours}h ${minutes}m ${seconds}s`;
   } else {
-    document.getElementById("countdown").innerHTML = "ZDAY 2 is coming soon!";
+    document.getElementById("countdown").innerHTML = "ZDAY 2 has arrived!";
+    clearInterval(x);
   }
 }, 1000);
