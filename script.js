@@ -182,15 +182,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       bookingConfirmation.style.display = 'none';
     }, 3000);
   });
-});
 
-// Countdown timer set to end on March 14, 2025, at 1:00 AM EST (5:00 AM UTC)
-const countDownDate = new Date(Date.UTC(2025, 2, 14, 5, 0, 0)).getTime(); // March 14, 2025, 5:00 AM UTC
-const x = setInterval(function() {
+  // Countdown timer set to end on March 14, 2025, at 1:00 AM EST (5:00 AM UTC)
+  const countDownDate = new Date(Date.UTC(2025, 2, 14, 5, 0, 0)).getTime(); // March 14, 2025, 5:00 AM UTC
   const now = new Date().toISOString();
   const nowUTC = new Date(now).getTime();
   const distance = countDownDate - nowUTC;
 
+  // Since the release date has passed, immediately show "ZDAY 2 has arrived!"
   if (distance > 0) {
     const hours = Math.floor(distance / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -198,6 +197,5 @@ const x = setInterval(function() {
     document.getElementById("countdown").innerHTML = `${hours}h ${minutes}m ${seconds}s`;
   } else {
     document.getElementById("countdown").innerHTML = "ZDAY 2 has arrived!";
-    clearInterval(x);
   }
-}, 1000);
+});
