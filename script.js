@@ -184,22 +184,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-// Countdown timer set to end on March 14, 2025, at 12 AM UTC
-const countDownDate = new Date(Date.UTC(2025, 2, 14, 19, 14, 0)).getTime();
-​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​const x = setInterval(function() {
+// Countdown timer set to reflect "ZDAY 2" is out now
+const releaseDate = new Date(Date.UTC(2025, 2, 9, 0, 0, 0)).getTime(); // March 9, 2025, 12:00 AM UTC (ZDAY 2 release)
+const x = setInterval(function() {
   const now = new Date().toISOString();
   const nowUTC = new Date(now).getTime();
-  const distance = countDownDate - nowUTC;
-
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  const distance = nowUTC - releaseDate; // Calculate time since release
 
   if (distance > 0) {
-    document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("countdown").innerHTML = `ZDAY 2 is OUT! ${days}d ${hours}h ${minutes}m ${seconds}s ago`;
   } else {
-    document.getElementById("countdown").innerHTML = "ZDAY 2 has arrived!";
-    clearInterval(x);
+    document.getElementById("countdown").innerHTML = "ZDAY 2 is coming soon!";
   }
 }, 1000);
