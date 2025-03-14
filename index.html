@@ -62,21 +62,6 @@
         </a>
       </div>
 
-      <div class="platform-buttons">
-        <a href="https://open.spotify.com/artist/6BsZlxrxvPEV6t7VX4XJQH" class="platform-btn spotify" target="_blank" rel="noopener noreferrer">
-          <img src="spotify-icon.png" alt="Spotify" class="platform-icon">
-          Spotify
-        </a>
-        <a href="https://music.apple.com/us/artist/miami-z17/1436806789" class="platform-btn apple" target="_blank" rel="noopener noreferrer">
-          <img src="apple-music-icon.png" alt="Apple Music" class="platform-icon">
-          Apple Music
-        </a>
-        <a href="https://www.youtube.com/@MiamiZ17" class="platform-btn youtube" target="_blank" rel="noopener noreferrer">
-          <img src="youtube-icon.png" alt="YouTube" class="platform-icon">
-          YouTube
-        </a>
-      </div>
-
       <article class="media-container">
         <figure class="live-stream">
           <div id="media-content">
@@ -86,19 +71,15 @@
               Your browser does not support the video tag.
             </video>
             <button id="play-button" class="play-button" aria-label="Play promotional video">
-              <span class="play-icon">▶</span> Play Video
+              <span class="play-icon">▶</span>
             </button>
             <p id="video-error" class="error-message" aria-live="assertive">Video failed to load. Check file paths, format, or browser compatibility.</p>
-            <!-- DistroKid HyperFollow Player -->
-            <div class="hyperfollow-player">
-              <iframe src="https://www.distrokid.com/hyperfollow/miamiz17/zday-2-2/embed" width="100%" height="400" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen loading="lazy"></iframe>
-            </div>
             <!-- Apple Music Player -->
             <div class="music-player apple-player">
               <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/ae/album/zday-2/1801773202" loading="lazy"></iframe>
             </div>
           </div>
-          <figcaption class="visually-hidden">Album promotional content, pre-save player, and music streams</figcaption>
+          <figcaption class="visually-hidden">Album promotional content and music streams</figcaption>
         </figure>
       </article>
 
@@ -130,7 +111,7 @@
         <input type="date" id="date" name="date" required min="2025-03-13">
         <label for="message">Additional Details:</label>
         <textarea id="message" name="message" placeholder="Any special requests?"></textarea>
-        <button type="submit">Submit Booking</button>
+        <button type="submit">Submit</button>
       </form>
       <p id="booking-confirmation" class="booking-confirmation" style="display: none; color: #D23333; margin-top: 10px;">Booking submitted! We’ll confirm via email soon.</p>
       <p class="booking-note">Notices will be sent to arabmafiaentamg@gmail.com</p>
