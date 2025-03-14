@@ -57,33 +57,21 @@
       <div id="countdown" class="countdown" role="timer" aria-live="polite"></div>
 
       <div class="action-buttons">
-        <a href="https://distrokid.com/hyperfollow/miamiz17/zday-2-2"
-           class="pre-save"
-           target="_blank"
-           rel="noopener noreferrer">
+        <a href="https://distrokid.com/hyperfollow/miamiz17/zday-2-2" class="pre-save" target="_blank" rel="noopener noreferrer">
           PRE-SAVE/LISTEN ON SPOTIFY
         </a>
       </div>
 
       <div class="platform-buttons">
-        <a href="https://open.spotify.com/artist/6BsZlxrxvPEV6t7VX4XJQH"
-           class="platform-btn spotify"
-           target="_blank"
-           rel="noopener noreferrer">
+        <a href="https://open.spotify.com/artist/6BsZlxrxvPEV6t7VX4XJQH" class="platform-btn spotify" target="_blank" rel="noopener noreferrer">
           <img src="spotify-icon.png" alt="Spotify" class="platform-icon">
           Spotify
         </a>
-        <a href="https://music.apple.com/us/artist/miami-z17/1436806789"
-           class="platform-btn apple"
-           target="_blank"
-           rel="noopener noreferrer">
+        <a href="https://music.apple.com/us/artist/miami-z17/1436806789" class="platform-btn apple" target="_blank" rel="noopener noreferrer">
           <img src="apple-music-icon.png" alt="Apple Music" class="platform-icon">
           Apple Music
         </a>
-        <a href="https://www.youtube.com/@MiamiZ17"
-           class="platform-btn youtube"
-           target="_blank"
-           rel="noopener noreferrer">
+        <a href="https://www.youtube.com/@MiamiZ17" class="platform-btn youtube" target="_blank" rel="noopener noreferrer">
           <img src="youtube-icon.png" alt="YouTube" class="platform-icon">
           YouTube
         </a>
@@ -97,7 +85,9 @@
               <source id="video-source" src="videos/Mobile-Vid-Promo.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
-            <button id="play-button" class="play-button" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px 20px; background: #D23333; color: white; border: none; border-radius: 5px; cursor: pointer; display: none;">Play Video</button>
+            <button id="play-button" class="play-button" aria-label="Play promotional video">
+              <span class="play-icon">▶</span> Play Video
+            </button>
             <p id="video-error" class="error-message" aria-live="assertive">Video failed to load. Check file paths, format, or browser compatibility.</p>
             <!-- DistroKid HyperFollow Player -->
             <div class="hyperfollow-player">
