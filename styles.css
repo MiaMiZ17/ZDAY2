@@ -163,41 +163,86 @@ body {
 .platform-buttons {
   display: flex;
   justify-content: center;
-  gap: 8px; /* Further reduced gap for better spacing */
-  margin-top: 8px;
+  gap: 6px; /* Adjusted gap to match the spacing of colored boxes */
+  margin-top: 6px;
   flex-wrap: wrap;
 }
 
 .platform-button {
   display: inline-flex;
   align-items: center;
-  padding: 3px; /* Reduced padding to make buttons smaller */
+  justify-content: center;
+  padding: 2px; /* Minimal padding to fit the icon or text */
   background-color: transparent;
-  border: 1px solid #fff; /* Thinner border */
+  border: 1px solid #fff; /* Default border until overridden by platform color */
   border-radius: 5px;
   transition: background-color 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  width: 18px; /* Match the size of the colored boxes (slightly larger to accommodate text if needed) */
+  height: 18px; /* Match the size of the colored boxes */
 }
 
 .platform-button:hover {
   background-color: #333;
-  border-color: #D23333;
 }
 
 .platform-icon {
-  width: 16px; /* Reduced icon size from 20px to 16px on desktop */
-  height: 16px;
+  width: 16px; /* Match the size of the colored boxes */
+  height: 16px; /* Match the size of the colored boxes */
+  object-fit: contain; /* Ensure the icon fits within the button */
 }
 
-.spotify .platform-icon {
-  filter: brightness(0) saturate(100%) invert(19%) sepia(92%) saturate(7499%) hue-rotate(359deg) brightness(103%) contrast(102%);
+.platform-button span {
+  font-size: 10px; /* Small text size for fallback */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  display: none; /* Hidden by default, shown if image fails */
 }
 
-.apple-music .platform-icon {
-  filter: brightness(0) saturate(100%) invert(87%) sepia(7%) saturate(5837%) hue-rotate(328deg) brightness(103%) contrast(101%);
+.spotify {
+  border-color: #1DB954; /* Spotify green */
 }
 
-.youtube .platform-icon {
-  filter: brightness(0) saturate(100%) invert(41%) sepia(93%) saturate(1352%) hue-rotate(316deg) brightness(104%) contrast(104%);
+.apple-music {
+  border-color: #A3A3A3; /* Apple Music gray (approximate) */
+}
+
+.youtube {
+  border-color: #FF0000; /* YouTube red */
+}
+
+/* Show text if image fails to load */
+.platform-button img[src=""] {
+  display: none;
+}
+
+.platform-button img:not([src]) {
+  display: none;
+}
+
+.platform-button img[src="invalid"] {
+  display: none;
+}
+
+.platform-button:where(.spotify, .apple-music, .youtube) img:not([src]) ~ span,
+.platform-button:where(.spotify, .apple-music, .youtube) img[src=""] ~ span,
+.platform-button:where(.spotify, .apple-music, .youtube) img[src="invalid"] ~ span {
+  display: block;
+}
+
+.spotify span {
+  content: "Spotify";
+}
+
+.apple-music span {
+  content: "Apple Music";
+}
+
+.youtube span {
+  content: "YouTube";
 }
 
 @media (max-width: 768px) {
@@ -219,17 +264,23 @@ body {
   }
 
   .platform-buttons {
-    gap: 6px; /* Further reduced gap for mobile */
-    margin-top: 6px;
+    gap: 4px; /* Further reduced gap for mobile */
+    margin-top: 4px;
   }
 
   .platform-button {
-    padding: 2px; /* Further reduced padding for mobile */
+    padding: 1px;
+    width: 16px; /* Slightly smaller on mobile to match colored boxes */
+    height: 16px;
   }
 
   .platform-icon {
-    width: 14px; /* Further reduced icon size for mobile from 16px to 14px */
+    width: 14px; /* Slightly smaller on mobile */
     height: 14px;
+  }
+
+  .platform-button span {
+    font-size: 8px; /* Smaller text size for mobile */
   }
 
   .control-panel {
