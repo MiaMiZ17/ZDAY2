@@ -136,7 +136,6 @@ body {
   font-family: 'Bricolage Grotesque', Arial, sans-serif;
   font-size: 24px;
   margin-bottom: 15px;
-  display: none; /* Hide countdown on mobile for simplicity */
 }
 
 .action-buttons {
@@ -161,6 +160,46 @@ body {
   background-color: #b52828;
 }
 
+.platform-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.platform-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.platform-button:hover {
+  background-color: #333;
+  border-color: #D23333;
+}
+
+.platform-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.spotify .platform-icon {
+  filter: brightness(0) saturate(100%) invert(19%) sepia(92%) saturate(7499%) hue-rotate(359deg) brightness(103%) contrast(102%);
+}
+
+.apple-music .platform-icon {
+  filter: brightness(0) saturate(100%) invert(87%) sepia(7%) saturate(5837%) hue-rotate(328deg) brightness(103%) contrast(101%);
+}
+
+.youtube .platform-icon {
+  filter: brightness(0) saturate(100%) invert(41%) sepia(93%) saturate(1352%) hue-rotate(316deg) brightness(104%) contrast(104%);
+}
+
 @media (max-width: 768px) {
   .pre-save {
     position: fixed;
@@ -172,6 +211,25 @@ body {
     font-size: 14px;
     padding: 10px 20px;
     z-index: 1000;
+  }
+
+  .countdown {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .platform-buttons {
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .platform-button {
+    padding: 6px;
+  }
+
+  .platform-icon {
+    width: 24px;
+    height: 24px;
   }
 
   .control-panel {
