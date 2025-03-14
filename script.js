@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       setTimeout(() => {
         videoPlayer.classList.add('active');
         playButton.style.display = 'block';
-      }, 2000); // Ensure fade-out completes before showing play button
+      }, 2000);
     }, 0);
 
     playButton.addEventListener('click', () => {
@@ -187,18 +187,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     }, 3000);
   });
 
-  // Countdown timer set to end on March 14, 2025, at 1:00 AM EST (5:00 AM UTC)
-  const countDownDate = new Date(Date.UTC(2025, 2, 14, 5, 0, 0)).getTime();
-  const now = new Date().toISOString();
-  const nowUTC = new Date(now).getTime();
-  const distance = countDownDate - nowUTC;
+  // Countdown timer set to end on March 14, 2025, at 1:00 AM EST (6:00 AM UTC)
+  const countDownDate = new Date(Date.UTC(2025, 2, 14, 6, 0, 0)).getTime();
+  const countdownElement = document.getElementById("countdown");
 
-  if (distance > 0) {
-    const hours = Math.floor(distance / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("countdown").innerHTML = `${hours}h ${minutes}m ${seconds}s`;
-  } else {
-    document.getElementById("countdown").innerHTML = "ZDAY 2 has arrived!";
-  }
+  const updateCountdown = () => {
+    const now = new Date().getTime();
+    const distance = countDownDate - now;
+
+    if (distance > 0) {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    } else {
+      countdownElement.innerHTML = "ZDAY 2 has arrived!";
+      clearInterval(countdownInterval);
+    }
+  };
+
+  // Update countdown every second
+  const countdownInterval = setInterval(updateCountdown, 1000);
+  updateCountdown(); // Initial call to avoid delay
 });
