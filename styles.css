@@ -13,9 +13,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Load Bricolage Grotesque and Kundiman from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700&family=Kundiman&display=swap');
-
 /* Sidebar (Header Bar on Mobile) */
 .sidebar {
   position: fixed;
@@ -229,7 +226,6 @@ body {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  aspect-ratio: 16 / 9; /* Maintain consistent aspect ratio */
   background-color: #000; /* Fallback background to avoid visual gap */
 }
 
@@ -237,7 +233,7 @@ body {
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 56.25%; /* 16:9 aspect ratio for video */
 }
 
 #media-content {
@@ -312,6 +308,31 @@ body {
   }
 }
 
+/* HyperFollow and Music Players */
+.hyperfollow-player,
+.music-player {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 660px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hyperfollow-player iframe,
+.apple-player iframe {
+  border: none;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .hyperfollow-player iframe,
+  .apple-player iframe {
+    height: 250px; /* Reduce height for mobile */
+  }
+}
+
 /* Studio Section */
 .studio-section {
   margin-top: 40px;
@@ -337,7 +358,9 @@ body {
   font-size: 16px;
 }
 
-.booking-form input, .booking-form select, .booking-form textarea {
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #444;
